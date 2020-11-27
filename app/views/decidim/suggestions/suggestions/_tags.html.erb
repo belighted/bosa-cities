@@ -1,5 +1,0 @@
-<ul class="tags tags--suggestion">
-  <% if resource.area %>
-    <li><%= link_to translated_attribute(resource.area_name), suggestions_path(filter: { area_id: [resource.area.id] }) %></li>
-  <% end %>
-</ul>

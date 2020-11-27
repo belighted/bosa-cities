@@ -1,6 +1,0 @@
----
-fr:
-  activemodel:
-    attributes:
-      suggestions_type:
-        area_enabled: Permettre aux administrateurs de choisir la zone de suggestion

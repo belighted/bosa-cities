@@ -14,15 +14,15 @@
   PreloadOpenData:
     cron: '0 17 * * *'
     class: PreloadOpenDataJob
-  CheckPublishedInitiatives:
-    cron: '0 16 * * *'
-    class: CheckPublishedInitiatives
-  CheckValidatingInitiatives:
-    cron: '30 16 * * *'
-    class: CheckValidatingInitiatives
-  NotifyProgressInitiatives:
-    cron: '45 8,16,23 * * *'
-    class: NotifyProgressInitiatives
+#  CheckPublishedInitiatives:
+#    cron: '0 16 * * *'
+#    class: CheckPublishedInitiatives
+#  CheckValidatingInitiatives:
+#    cron: '30 16 * * *'
+#    class: CheckValidatingInitiatives
+#  NotifyProgressInitiatives:
+#    cron: '45 8,16,23 * * *'
+#    class: NotifyProgressInitiatives
   CleanSessions:
     cron: '0 5 * * *'
     class: CleanSessions

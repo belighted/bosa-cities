@@ -29,7 +29,7 @@ require "decidim/dev/test/base_spec_helper"
 end
 
 require "decidim/core/test/factories"
-require "decidim/initiatives/test/factories"
+# require "decidim/initiatives/test/factories"
 
 # ---------------------------------------------------------------------------------------------------------------------
 

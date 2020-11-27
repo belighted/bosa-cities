@@ -1,6 +1,0 @@
----
-nl:
-  activemodel:
-    attributes:
-      suggestions_type:
-        area_enabled: Stel beheerders in staat het gebied voor suggestie te kiezen

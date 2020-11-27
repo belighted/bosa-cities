@@ -24,22 +24,6 @@ Decidim.configure do |config|
     }
   end
 
-  if defined?(Decidim::Initiatives) && defined?(Decidim::Initiatives.do_not_require_authorization)
-    Decidim::Initiatives.minimum_committee_members = 0
-    Decidim::Initiatives.default_signature_time_period_length = 6.months
-    Decidim::Initiatives.print_enabled = false
-    Decidim::Initiatives.default_components = []
-    Decidim::Initiatives.timestamp_service = "Decidim::Initiatives::UtcTimestamp"
-  end
-
-  if defined?(Decidim::Suggestions) && defined?(Decidim::Suggestions.do_not_require_authorization)
-    Decidim::Suggestions.minimum_committee_members = 0
-    Decidim::Suggestions.default_signature_time_period_length = 6.months
-    Decidim::Suggestions.print_enabled = false
-    Decidim::Suggestions.default_components = []
-    Decidim::Suggestions.timestamp_service = "Decidim::Suggestions::UtcTimestamp"
-  end
-
   # Custom resource reference generator method
   # config.reference_generator = lambda do |resource, component|
   #   # Implement your custom method to generate resources references
