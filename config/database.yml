@@ -28,11 +28,11 @@ default: &default
 
 development:
   <<: *default
-  database: bosa_petition_dev
+  database: bosa_cities_dev
 
 test:
   <<: *default
-  database: bosa_petition_test
+  database: bosa_cities_test
 
 staging:
   url: <%= ENV['DATABASE_URL'] %>
