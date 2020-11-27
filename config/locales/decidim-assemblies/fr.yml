@@ -3,233 +3,61 @@ fr:
   activemodel:
     attributes:
       assembly:
-        assembly_type: Type commission délibrative
-        assembly_type_other: Autre type commission délibrative
-        decidim_assemblies_type_id: Type commission délibrative
-        parent_id: Commission délibérative parente
+        decidim_assemblies_type_id: Type d'assemblée
 
-  activerecord:
-    models:
-      decidim/assembly:
-        one: Commission délibérative
-        other: Commissions délibératives
-      decidim/assembly_member:
-        one: Membre de la commission délibérative
-        other: Membres de la commission délibérative
-      decidim/assembly_user_role:
-        one: Fonction du membre dans la commission délibérative
-        other: Fonctions du membre dans la commission délibérative
   decidim:
     admin:
       actions:
-        new_assembly: Nouvelle commission délibérative
-        new_assembly_type: Nouveau type commission délibrative
-      assemblies:
-        create:
-          error: Une erreur s'est produite lors de la création d'une nouvelle commission délibérative.
-          success: Commission délibérative créée avec succès.
-        edit:
-          update: Mettre à jour
-        new:
-          create: Créer
-          title: Nouvelle commission délibérative
-        update:
-          error: Une erreur s'est produite lors de la mise à jour de cette commission délibérative.
-          success: Commission délibérative mise à jour avec succès.
-      assemblies_copies:
-        create:
-          error: Une erreur s'est produite lors de la duplication de cette commission délibérative.
-          success: La commission délibérative a été dupliquée avec succès.
+        new_assembly_type: Nouveau type d'assemblée
       assemblies_types:
         create:
-          error: Une erreur s'est produite lors de la création d'un nouveau type commission délibrative.
-          success: Type commission délibrative créé avec succès.
+          error: Une erreur s'est produite lors de la création du type d'assemblée
+          success: Type d'assemblée créé avec succès.
         destroy:
-          success: Type commission délibrative supprimé avec succès.
+          success: Type d'assemblée supprimé avec succès.
         new:
           create: Créer
-          title: Nouveau type commission délibrative
+          title: Nouveau type d'assemblée
         update:
-          error: Une erreur s'est produite lors de la mise à jour de ce type commission délibrative.
-          success: Type commission délibrative mis à jour avec succès.
-      assembly_copies:
-        new:
-          copy: Copier
-          select: Sélectionnez les données que vous souhaitez dupliquer
-          title: Dupliquer la commission délibérative
-      assembly_members:
-        create:
-          error: Une erreur s'est produite lors de l'ajout d'un membre pour cette commission délibérative.
-          success: Membre créé avec succès pour cette commission délibérative.
-        destroy:
-          success: Membre supprimé avec succès pour cette commission délibérative.
-        edit:
-          title: Mettre à jour le membre de la commission délibérative.
-          update: Mettre à jour
-        index:
-          assembly_members_title: Membres de la commission délibérative
-        new:
-          create: Créer
-          title: Nouveau membre de la commission délibérative.
-        update:
-          error: Une erreur s'est produite lors de la mise à jour du membre de cette commission délibérative.
-          success: Membre mis à jour avec succès pour cette commission délibérative.
-      assembly_publications:
-        create:
-          error: Une erreur s'est produite lors de la publication de cette commission délibérative.
-          success: Commission délibérative publiée avec succès.
-        destroy:
-          error: Une erreur s'est produite lors de la dépublication de cette commission délibérative.
-          success: Commission délibérative dépubliée avec succès.
-      assembly_user_roles:
-        create:
-          error: Une erreur s'est produite lors de l'ajout d'un utilisateur pour cette commission délibérative.
-          success: Utilisateur ajouté avec succès à cette commission délibérative.
-        destroy:
-          success: Utilisateur supprimé avec succès de cette commission délibérative.
-        edit:
-          title: Mettre à jour l'utilisateur de la commission délibérative.
-          update: Mettre à jour
-        index:
-          assembly_admins_title: Administrateurs de la commission délibérative
-        new:
-          create: Créer
-          title: Nouvel administrateur de la commission délibérative.
-        update:
-          error: Une erreur s'est produite lors de la mise à jour d'un utilisateur pour cette commission délibérative.
-          success: Utilisateur mis à jour avec succès pour cette commission délibérative.
-      menu:
-        assemblies: Commissions délibératives
-        assemblies_settings: Paramètres
-        assemblies_submenu:
-          assembly_admins: Administrateurs de la commission délibérative
-          assembly_members: Membres
-          attachment_collections: Dossiers
-          attachment_files: Fichiers
-          attachments: Documents liés
-          categories: Catégories
-          components: Composants
-          info: Information
-          moderations: Modérations
-          private_users: Utilisateurs privés
-        assemblies_types: Types commission délibrative
+          error: Il y a eu un problème de mise à jour de ce type d'assemblée.
+          success: Type d'assemblée mis à jour avec succès.
+
       models:
-        assembly:
-          name: Commission délibérative
         assembly_user_role:
-          name: Utilisateur de la commission délibérative
           roles:
             valuator: Valorisateur
       titles:
-        assemblies: Commissions délibératives
-        assemblies_types: Types commissions délibratives
+        assemblies_types: Types d'assemblées
     admin_log:
-      assembly:
-        create: "%{user_name} a créé la commission délibérative %{resource_name}"
-        publish: "%{user_name} a publié la commission délibérative %{resource_name}"
-        unpublish: "%{user_name} a dépublié la commission délibérative %{resource_name}"
-        update: "%{user_name} a mis à jour la commission délibérative %{resource_name}"
-      assembly_member:
-        create: "%{user_name} a créé le membre %{resource_name} membre dans la commission délibérative %{space_name}"
-        delete: "%{user_name} enlevé le membre %{resource_name} de la commission délibérative %{space_name}"
-        update: "%{user_name} a mis à jour le membre %{resource_name} de la commission délibérative %{space_name}"
-      assembly_setting:
-        update: "%{user_name} a mis à jour les paramètres des commissions délibératives"
       assembly_type:
-        create: "%{user_name} a créé le type commission délibrative %{resource_name}"
-        delete: "%{user_name} a retiré le membre %{resource_name} du type d'assemblé %{space_name}"
-        publish: "%{user_name} a publié le type commission délibrative %{resource_name}"
-        unpublish: "%{user_name} a dépublié le type commission délibrative %{resource_name}"
-        update: "%{user_name} a mis à jour le type commission délibrative %{resource_name}"
-      assembly_user_role:
-        create: "%{user_name} a invité %{resource_name} à la commission délibérative %{space_name}"
-        delete: "%{user_name} a supprimé l'utilisateur %{resource_name} de la commission délibérative%{space_name}"
-        update: "%{user_name} a changé le rôle de %{resource_name} dans la commission délibérative %{space_name}"
+        create: "%{user_name} a créé le type d'assemblée %{resource_name}"
+        delete: "%{user_name} a supprimé le membre %{resource_name} du type d'assemblée %{space_name}"
+        publish: "%{user_name} a publié le type d'assemblée %{resource_name}"
+        unpublish: "%{user_name} non publié le %{resource_name} type d'assemblée"
+        update: "%{user_name} a mis à jour le type d'assemblée %{resource_name}"
     assemblies:
       admin:
-        assemblies:
-          form:
-            duration: Durée
-            duration_help: Si la durée de cette commission délibérative est limitée, sélectionnez la date de fin. Sinon sa durée ne sera pas limitée.
-            filters: Filtres
-            images: Images
-            included_at_help: Sélectionnez la date à laquelle cet commission délibérative a été ajoutée à Decidim. Elle ne doit pas nécessairement être identique à la date de création.
-            metadata: Métadonnées
-            other: Autre
-            select_a_created_by: Sélectionnez un créateur
-            select_an_area: Sélectionnez une zone d'application
-            select_an_assembly_type: Sélectionnez un type commission délibrative
-            select_parent_assembly: Sélectionnez la commission délibérative parente
-            slug_help: 'Les identifiants d''URL sont utilisés pour générer les liens qui renvoient vers cette commission délibérative. N''accepte que des lettres, des chiffres et des tirets et doit commencer par une lettre. Exemple: %{url}'
-            social_handlers: Réseaux sociaux
-            title: Informations générales
-            visbility: Visibilité
-        assemblies_settings:
-          edit:
-            update: Mettre à jour
-          form:
-            title: Paramètres pour les commissions délibératives
         assemblies_types:
           form:
             title: Titre
-      content_blocks:
-        highlighted_assemblies:
-          name: Commissions délibératives mises en avant
-      index:
-        title: Commissions délibératives
-      last_activity:
-        new_assembly: Nouvelle commission délibérative
+
       pages:
         home:
           highlighted_assemblies:
-            active_assemblies: Commissions délibératives actives
-            assemblies_button_title: Lien vers la page Commissions délibératives où toutes les commissions délibératives sont affichées
-            see_all_assemblies: Voir toutes les commissions délibératives
+            assemblies_button_title: Lien vers la page des assemblées affichant toutes les assemblées
       show:
-        assembly_type: Type commission délibrative
-        children: Sous-commissions délibératives
-        local_area: Périmètre commission délibrative
-        private_space: Ceci est une commission délibérative privée
-        social_networks_title: Partager cette commission délibérative sur
+        social_networks_title: Partagez cette assemblée sur
       statistics:
-        assemblies_count: Commissions délibératives
+        posts_count: Posts
     conferences:
       pages:
         home:
           highlighted_conferences:
             conferences_button_title: Lien vers la page des conférences affichant toutes les conférences
-    events:
-      assemblies:
-        create_assembly_member:
-          email_intro: Un administrateur de la commission délibérative <a href="%{resource_url}">%{resource_name}</a> vous y a ajouté en tant que membre.
-          email_outro: Vous avez reçu cette notification parce que vous avez été invité à rejoindre une commission délibérative. Consultez <a href="%{resource_path}">la page de la commission délibérative</a> pour y contribuer !
-          email_subject: Vous avez été invité à être membre de la commission délibérative %{resource_name}!
-          notification_title: Vous avez été inscrit en tant que membre de la commission délibérative <a href="%{resource_path}">%{resource_name}</a>. Consultez la <a href="%{resource_path}">page de la commission délibérative</a> pour contribuer !
-      assembly:
-        role_assigned:
-          email_intro: Vous avez été assigné le rôle de %{role} de la commission délibérative "%{resource_title}".
-          email_outro: Vous avez reçu cette notification parce que vous êtes %{role} de la commission délibérative "%{resource_title}".
-          email_subject: Vous avez été assigné le rôle de %{role} pour la commission délibérative "%{resource_title}".
-          notification_title: Vous avez été assigné le rôle de %{role} pour la commission délibérative <a href="%{resource_url}">%{resource_title}</a>.
-    help:
-      participatory_spaces:
-        assemblies:
-          contextual: "<p>Une <strong>commission délibérative</strong> est un groupe de membres d'une organisation qui se réunissent périodiquement pour prendre des décisions concernant un domaine spécifique ou la portée de l'organisation.</p> <p>Les commissions délibératives tiennent des réunions, certaines sont privées et d'autres sont ouvertes. Si elles sont ouvertes, il est possible d'y participer (par exemple: participer si la capacité le permet, ajouter des points à l'ordre du jour ou commenter les propositions et décisions prises par cet organe).</p> <p>Exemples: Une commission délibérative générale (qui se réunit une fois par an pour définir les principaux axes d'action de l'organisation ainsi que ses organes exécutifs par vote), un conseil consultatif sur l'égalité (qui se réunit tous les deux mois pour formuler des propositions sur la manière d'améliorer les relations entre les hommes et les femmes). dans l’organisation), une commission d’évaluation (qui se réunit tous les mois pour contrôler un processus) ou un organisme de garantie (qui collecte des incidents, des abus ou des propositions pour améliorer les processus décisionnels) sont tous des exemples de réunions.</p>\n"
-          page: "<p>Une commission délibérative est un groupe de membres d'une organisation qui se réunissent périodiquement pour prendre des décisions concernant un domaine spécifique ou la portée de l'organisation.</p> <p>commissions délibératives tiennent des réunions, certaines sont privées et d'autres sont ouvertes. S'ils sont ouverts, il est possible d'y participer (par exemple: participer si la capacité le permet, ajouter des points à l'ordre du jour ou commenter les propositions et décisions prises par cet organe).</p> <p>Exemples: Une commission délibérative générale (qui se réunit une fois par an pour définir les principaux axes d'action de l'organisation ainsi que ses organes exécutifs par vote), un conseil consultatif sur l'égalité (qui se réunit tous les deux mois pour formuler des propositions sur la manière d'améliorer les relations entre les hommes et les femmes). dans l’organisation), une commission d’évaluation (qui se réunit tous les mois pour contrôler un processus) ou un organisme de garantie (qui collecte des incidents, des abus ou des propositions pour améliorer les processus décisionnels) sont tous des exemples de réunions.</p>\n"
-          title: Qu'est-ce qu'une commission délibérative ?
     log:
       value_types:
-        assembly_presenter:
-          not_found: 'La commission délibérative n''a pas été trouvée sur la base de données (ID: %{id})'
         assembly_type_presenter:
-          not_found: 'Le type commission délibérative n''a pas été trouvé sur la base de données (ID: %{id})'
-    menu:
-      assemblies: Commissions délibératives
-    metrics:
-      assemblies:
-        description: Nombre commissions délibratives créées
-        object: commissions délibératives
-        title: Commissions délibératives
+          not_found: 'Le type d''assemblée n''a pas été trouvé dans la base de données (ID : %{id})'
     pages:
       home:
         hero:
@@ -241,32 +69,3 @@ fr:
         home:
           highlighted_processes:
             processes_button_title: Lien vers la page des processus affichant tous les processus
-      show:
-        related_assemblies: Commissions délibératives associées
-  errors:
-    messages:
-      cannot_be_blank: ne peut être vide
-  layouts:
-    decidim:
-      assemblies:
-        assembly:
-          more_info: Plus d'informations
-          take_part: Participer
-        index:
-          children: 'Commissions délibératives : '
-          organizational_chart: Organigramme
-          promoted_assemblies: Commissions délibératives mises en avant
-          reset_chart: Réinitialiser
-        order_by_assemblies:
-          assemblies:
-            one: "%{count} commission délibérative"
-            other: "%{count} commissions délibératives"
-        promoted_assembly:
-          more_info: Plus d'informations
-          take_part: Participer
-      assembly_navigation:
-        assembly_member_menu_item: Membres
-        assembly_menu_item: La commission délibérative
-      assembly_widgets:
-        show:
-          take_part: Participer

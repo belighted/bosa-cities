@@ -3,455 +3,54 @@ nl:
   activemodel:
     attributes:
       assembly:
-        area_id: Onderwerp
-        assembly_type: Overlegcommissie type
-        assembly_type_other: Ander overlegcommissie type
-        banner_image: Bannerafbeelding
-        closing_date: Einddatum
-        closing_date_reason: Reden sluitingsdatum
-        composition: Samenstelling
-        copy_categories: Categorieën kopiëren
-        copy_components: Kopieer onderdelen
-        copy_features: Functionaliteiten kopiëren
-        created_by: Aangemaakt door
-        created_by_other: Aangemaakt door iemand anders
-        creation_date: Gemaakt op
-        decidim_area_id: onderwerp
-        decidim_assemblies_type_id: Overlegcommissie type
-        decidim_scope_id: Bereik
-        description: Beschrijving
-        developer_group: Organisator
-        domain: Domein
-        duration: Duur
-        facebook: Facebook
-        github: GitHub
-        hashtag: Hashtag
-        hero_image: Afbeelding van de startpagina
-        included_at: Opgenomen op
-        instagram: Instagram
-        internal_organisation: Interne organisatie
-        is_transparent: Is transparant
-        local_area: Organisatiegebied
-        meta_scope: Scope metadata
-        parent_id: Hoofd overlegcommissie
-        participatory_processes_ids: Verwante inspraakprocessen
-        participatory_scope: Wat is besloten
-        participatory_structure: Hoe wordt er besloten
-        private_space: Privé ruimte
-        promoted: Gepromoveerd
-        published_at: Gepubliceerd op
-        purpose_of_action: Doelstelling
-        scope_id: Scope
-        scopes_enabled: Scopes ingeschakeld
-        short_description: Korte beschrijving
-        show_statistics: Toon statistieken
-        slug: URL pad
-        special_features: Speciale functionaliteiten
-        subtitle: Ondertiteling
-        target: Wie neemt deel
-        title: Titel
-        twitter: Twitter
-        youtube: YouTube
-      assembly_member:
-        birthday: Geboortedatum
-        birthplace: Geboorteplaats
-        ceased_date: Sluitingsdatum
-        designation_date: Ontwerpdatum
-        designation_mode: Ontwerpdatum
-        full_name: Volledige naam
-        gender: Geslacht
-        position: Positie
-      assembly_user_role:
-        email: E-mail
-        name: Naam
-        role: Rol
-  activerecord:
-    models:
-      decidim/assembly:
-        one: Groep
-        other: Overlegcommissies
-      decidim/assembly_member:
-        one: Overlegcommissie lid
-        other: Overlegcommissie leden
-      decidim/assembly_user_role:
-        one: Groep gebruikersrol
-        other: Groep gebruikersrollen
+        decidim_assemblies_type_id: Assembly type
+
   decidim:
     admin:
       actions:
-        new_assembly: Nieuwe overlegcommissie
-        new_assembly_type: Nieuw overlegcommissie type
-      assemblies:
-        create:
-          error: Er is een fout opgetreden bij het maken van een nieuwe overlegcommissie.
-          success: Bijeenkomst is succesvol gecreëerd.
-        edit:
-          update: Bijwerken
-        index:
-          not_published: Niet gepubliceerd
-          private: Privé
-          public: Openbaar
-          published: Gepubliceerd
-        new:
-          create: creëren
-          title: Nieuwe bijeenkomst
-        update:
-          error: Er is een fout opgetreden bij het bijwerken van deze overlegcommissie.
-          success: Groep is succesvol bijgewerkt.
-      assemblies_copies:
-        create:
-          error: Er was een fout bij het dupliceren van deze overlegcommissie.
-          success: Groep succesvol gedupliceerd.
-      assemblies_settings:
-        update:
-          error: Er is een fout opgetreden bij het bijwerken van de instellingen.
-          success: Instellingen succesvol bijgewerkt.
+        new_assembly_type: New assembly type
       assemblies_types:
         create:
-          error: Er is een fout opgetreden bij het maken van een nieuw assembly-type.
-          success: Assemblage type is succesvol gecreëerd.
+          error: There was a problem creating a new assembly type.
+          success: Assembly type created successfully.
         destroy:
-          success: Groep succesvol verwijderd.
+          success: Assembly type successfully deleted.
         new:
-          create: creëren
-          title: Nieuw overlegcommissie type
+          title: New assembly type
         update:
-          error: Er is een fout opgetreden bij het bijwerken van dit assembly-type.
-          success: Assemblage type is succesvol bijgewerkt.
-      assembly_copies:
-        new:
-          copy: Kopiëren
-          select: Selecteer welke gegevens u wilt dupliceren
-          title: Dupliceer bijeenkomst
-      assembly_members:
-        create:
-          error: Er is een fout opgetreden bij het toevoegen van een lid voor deze overlegcommissie.
-          success: Gebruiker is succesvol toegevoegd aan deze overlegcommissie.
-        destroy:
-          success: Lid is met succes verwijderd uit deze overlegcommissie.
-        edit:
-          title: Overlegcommissie lid bijwerken.
-          update: Bijwerken
-        index:
-          assembly_members_title: Overlegcommissie leden
-        new:
-          create: Creëren
-          title: Nieuw overlegcommissies lid.
-        update:
-          error: Er is een fout opgetreden bij het bijwerken van het lid voor deze overlegcommissie.
-          success: Lid is succesvol bijgewerkt voor deze overlegcommissie.
-      assembly_publications:
-        create:
-          error: Er is een fout opgetreden bij het publiceren van deze overlegcommissie.
-          success: Groep is succesvol gepubliceerd.
-        destroy:
-          error: Er is een fout opgetreden bij het publiceren van deze overlegcommissie.
-          success: Groep succesvol gedepubliceerd.
-      assembly_user_roles:
-        create:
-          error: Er is een fout opgetreden bij het toevoegen van een admin voor deze overlegcommissie.
-          success: Gebruiker is succesvol toegevoegd aan deze overlegcommissie.
-        destroy:
-          success: Gebruiker is met succes uit deze overlegcommissie verwijderd.
-        edit:
-          title: Overlegcommissie admin bijwerken.
-          update: Bijwerken
-        index:
-          assembly_admins_title: Groep-admins
-        new:
-          create: Aanmaken
-          title: Nieuwe overlegcommissies admin.
-        update:
-          error: Er is een fout opgetreden bij het bijwerken van een admin voor deze overlegcommissie.
-          success: Beheerder is succesvol bijgewerkt voor deze vergadering.
+          error: There was a problem updating this assembly type.
+          success: Assembly type successfully updated.
       menu:
-        assemblies: Overlegcommissies
-        assemblies_settings: Instellingen
-        assemblies_submenu:
-          assembly_admins: Groep-admins
-          assembly_members: Leden
-          attachment_collections: Mappen
-          attachment_files: Bestanden
-          attachments: Bijlagen
-          categories: Categorieën
-          components: Onderdelen
-          info: Info
-          moderations: Moderaties
-          private_users: Particuliere gebruikers
-        assemblies_types: Soorten Buurderijen
+        assemblies_types: Assemblies types
       models:
-        assemblies_types:
-          fields:
-            created_at: Aangemaakt op
-            title: Titel
-        assembly:
-          fields:
-            created_at: Aangemaakt op
-            private: Privaat
-            promoted: Gemarkeerd
-            published: Gepubliceerd
-            title: Titel
-          name: Groep
-        assembly_member:
-          fields:
-            ceased_date: Sluitingsdatum
-            designation_date: Ontwerpdatum
-            full_name: Naam
-            position: Positie
-          name: Lid
-          positions:
-            other: Overige
-            president: Voorzitter
-            secretary: Secretaris
-            vice_president: Ondervoorzitter
         assembly_user_role:
-          fields:
-            email: E-mail
-            name: Naam
-            role: Rol
-          name: Overlegcommissie admin
           roles:
-            admin: Beheerder
-            collaborator: Medewerker
-            moderator: Moderator
-            valuator: 'Waarde:'
-      titles:
-        assemblies: Overlegcommissies
-        assemblies_types: Overlegcommissie type
-    admin_log:
-      assembly:
-        create: "%{user_name} heeft de overlegcommissie %{resource_name} gemaakt"
-        publish: "%{user_name} heeft de %{resource_name} overlegcommissie gepubliceerd"
-        unpublish: "%{user_name} heeft de overlegcommissie %{resource_name} gedepubliceerd"
-        update: "%{user_name} heeft de overlegcommissie %{resource_name} bijgewerkt"
-      assembly_member:
-        create: "%{user_name} heeft het %{resource_name} lid in de %{space_name} overlegcommissie gemaakt"
-        delete: "%{user_name} verwijderde het %{resource_name} lid uit de %{space_name} overlegcommissie"
-        update: "%{user_name} heeft het %{resource_name} lid in de %{space_name} overlegcommissie bijgewerkt"
-      assembly_setting:
-        update: "%{user_name} heeft de instellingen van de Buurderijen bijgewerkt"
-      assembly_type:
-        create: "%{user_name} heeft de overlegcommissie %{resource_name} bijgewerkt"
-        delete: "%{user_name} verwijderde het %{resource_name} lid uit de %{space_name} overlegcommissie"
-        publish: "%{user_name} heeft de %{resource_name} overlegcommissie gepubliceerd"
-        unpublish: "%{user_name} heeft de publicatie van de overlegcommissie %{resource_name} ongedaan gemaakt"
-        update: "%{user_name} heeft de overlegcommissie %{resource_name} bijgewerkt"
-      assembly_user_role:
-        create: "%{user_name} nodigde %{resource_name} uit voor de overlegcommissie %{space_name}"
-        delete: "%{user_name} heeft de gebruiker %{resource_name} verwijderd uit de %{space_name} overlegcommissie"
-        update: "%{user_name} heeft de rol van %{resource_name} in de %{space_name} overlegcommissie gewijzigd"
+            valuator: Valuator
+
     assemblies:
-      admin:
-        assemblies:
-          form:
-            duration: Duur
-            duration_help: Als de duur van deze overlegcommissie beperkt is, selecteert u de einddatum. Anders zal dit verschijnen als onbepaald.
-            filters: Filters
-            images: Afbeeldingen
-            included_at_help: Selecteer de datum waarop deze overlegcommissie aan Decidim is toegevoegd. Het hoeft niet noodzakelijk hetzelfde te zijn als de aanmaakdatum.
-            metadata: Metadata
-            other: Overige
-            select_a_created_by: Selecteer op 'gemaakt door'
-            select_an_area: Selecteer een onderwerp
-            select_an_assembly_type: Selecteer een overlegcommissie type
-            select_parent_assembly: Selecteer de hoofd overlegcommissie
-            slug_help: 'URL-paden worden gebruikt om de URL''s te genereren die naar deze bijeenkomst verwijzen. Enkel letters, cijfers en streepjes worden toegestaan en deze moet beginnen met een letter. Voorbeeld: %{url}'
-            social_handlers: sociaal
-            title: Algemene informatie
-            visbility: Zichtbaarheid
-        assemblies_settings:
-          edit:
-            update: Vernieuwen
-          form:
-            title: Instellingen voor assemblies
-        assemblies_types:
-          form:
-            title: Titel
-        assembly_copies:
-          form:
-            slug_help: 'URL-paden worden gebruikt om de URL''s te genereren die naar deze bijeenkomst verwijzen. Enkel letters, cijfers en streepjes worden toegestaan en deze moet beginnen met een letter. Voorbeeld: %{url}'
-        assembly_members:
-          form:
-            existing_user: Bestaande deelnemer
-            non_user: Niet deelnemer
-            select_a_position: Selecteer een positie
-            select_user: Selecteer een deelnemer
-            user_type: Type deelnemer
-          index:
-            filter:
-              all: Alle
-              ceased: Gestopt
-              not_ceased: Niet gestopt
-            filter_by: Filteren op
-            search: Zoeken
-        content_blocks:
-          highlighted_assemblies:
-            max_results: Maximum aantal elementen dat kan worden weergegeven
-      assembly_members:
-        index:
-          members: Leden
-      assembly_types:
-        commission: Comissie
-        consultative_advisory: Advies overlegcommissie
-        executive: Uitvoerend
-        government: Regering
-        others: Overige
-        participatory: Participatief
-        working_group: Werk overlegcommissie
-      content_blocks:
-        highlighted_assemblies:
-          name: Gemarkeerde overlegcommissies
-      created_by:
-        city_council: Gemeenteraad
-        others: Overige
-        public: Openbaar
-      filter:
-        all: Alle types
-        commission: Commissie
-        consultative_advisory: Advies overlegcommissie
-        executive: Uitvoerend
-        government: Regering
-        help: 'Toon:'
-        others: Overige
-        participatory: Participatief
-        working_group: Werk overlegcommissie
-      index:
-        title: Overlegcommissies
-      last_activity:
-        new_assembly: Nieuwe overlegcommissie
       pages:
         home:
           highlighted_assemblies:
-            active_assemblies: Huidige events
-            assemblies_button_title: Link naar de pagina van de Buurderijen die alle Buurderijen laat zien
-            see_all_assemblies: Bekijk alle events
-        user_profile:
-          member_of:
-            member_of: Lid van
+            assemblies_button_title: Link to the Assemblies page displaying all the assemblies
       show:
-        area: onderwerp
-        assembly_type: Overlegcommissie type
-        children: Overlegcommissies
-        closing_date: Einddatum
-        composition: Samenstelling
-        created_by: Aangemaakt door
-        creation_date: Gemaakt op
-        developer_group: Organisator
-        duration: Duur
-        included_at: Opgenomen op
-        indefinite_duration: onbepaald
-        internal_organisation: Interne organisatie
-        is_transparent:
-          'false': ondoorzichtig
-          'true': Transparant
-        local_area: Organisatiegebied
-        participatory_scope: Wat is besloten
-        participatory_structure: Hoe wordt er besloten
-        private_space: Dit is een privé event
-        purpose_of_action: Doelstelling
-        read_less: Minder lezen
-        read_more: Lees verder
-        related_participatory_processes: Verwante inspraakprocessen
-        scope: Scope
-        social_networks: Sociale netwerken
-        social_networks_title: Deze overlegcommissie delen op
-        target: Wie doet mee
+        social_networks_title: Share this assembly on
       statistics:
-        answers_count: Antwoorden
-        assemblies_count: Overlegcommissies
-        comments_count: Reacties
-        debates_count: Debatten
-        endorsements_count: Aanbevelingen
-        headline: Activiteit
-        meetings_count: Events
-        orders_count: Ondersteunt
-        pages_count: Pagina's
-        posts_count: Berichten
-        projects_count: Projecten
-        proposals_count: Voorstellen
-        results_count: Resultaten
-        surveys_count: Enquêtes
-        users_count: Deelnemers
-        votes_count: Ondersteunt
-    assembly_members:
-      assembly_member:
-        designated_on: Aangewezen op
-      index:
-        title: Leden
+        posts_count: Posts
+
     conferences:
       pages:
         home:
           highlighted_conferences:
-            conferences_button_title: Link naar de conferentiepagina die alle conferenties weergeeft.
-    events:
-      assemblies:
-        create_assembly_member:
-          email_intro: Een beheerder van de <a href="%{resource_url}">%{resource_name}</a> overlegcommissie heeft je toegevoegd als een van haar leden.
-          email_outro: Je hebt deze melding ontvangen omdat je uitgenodigd bent voor een vergadering. Bekijk de <a href="%{resource_path}">vergaderpagina</a> om bij te dragen!
-          email_subject: Je bent uitgenodigd om lid te worden van de %{resource_name} Buurderij!
-          notification_title: Je bent geregistreerd als lid van de Buurderij <a href="%{resource_path}">%{resource_name}</a>. Bekijk de <a href="%{resource_path}">pagina</a> om bij te dragen!
-      assembly:
-        role_assigned:
-          email_intro: Je bent toegewezen als %{role} voor de overlegcommissie "%{resource_title}".
-          email_outro: Je hebt deze melding ontvangen omdat je %{role} van de "%{resource_title}" bijeenkomst bent.
-          email_subject: U bent toegewezen als %{role} voor "%{resource_title}".
-          notification_title: Je bent toegewezen als %{role} voor de overlegcommissie <a href="%{resource_url}">%{resource_title}</a>.
-    help:
-      participatory_spaces:
-        assemblies:
-          contextual: "<p>Een overlegcommissie is een overlegcommissie leden van een organisatie die periodiek bijeenkomen om beslissingen te nemen over een specifiek gebied of een bepaald bereik van de organisatie.</p> <p>Overlegcommissies houden vergaderingen, sommige zijn privé en sommige zijn open. Als ze open zijn, is het mogelijk om eraan deel te nemen (bijvoorbeeld: aanwezig zijn als de capaciteit het toelaat, punten toevoegen aan de agenda of commentaar geven op de voorstellen en beslissingen van dit orgel).</p> <p>Voorbeelden: een algemene overlegcommissie (die eenmaal per jaar bijeenkomt om de hoofdlijnen van de organisatie te bepalen, evenals haar uitvoerende organen bij stemming), een gelijkheidsadviesraad (die om de twee maanden bijeenkomt om voorstellen te doen over het verbeteren van de genderrelaties in de organisatie) zijn een evaluatiecommissie (die elke maand bijeenkomt om een ​​proces te volgen) of een garantieorgaan (dat incidenten, misbruiken of voorstellen verzamelt om de besluitvormingsprocedures te verbeteren) allemaal voorbeelden van overlegcommissies.</p>\n"
-          page: "<p>Een assemblee is een overlegcommissie leden van een organisatie die periodiek bijeenkomen om beslissingen te nemen over een specifiek gebied of een bepaald bereik van de organisatie.</p> <p>Assemblees houden vergaderingen, sommige zijn privé en sommige zijn open. Als ze open zijn, is het mogelijk om eraan deel te nemen (bijvoorbeeld: aanwezig zijn als de capaciteit het toelaat, punten toevoegen aan de agenda of commentaar geven op de voorstellen en beslissingen van dit orgel).</p> <p>Voorbeelden: een algemene assemblee (die eenmaal per jaar bijeenkomt om de hoofdlijnen van de organisatie te bepalen, evenals haar uitvoerende organen bij stemming), een gelijkheidsadviesraad (die om de twee maanden bijeenkomt om voorstellen te doen over het verbeteren van de genderrelaties in de organisatie), een evaluatiecommissie (die elke maand bijeenkomt om een ​​proces te volgen) of een garantieorgaan (dat incidenten, misbruiken of voorstellen verzamelt om de besluitvormingsprocedures te verbeteren) zijn allemaal voorbeelden van assemblees.</p>\n"
-          title: Wat zijn overlegcommissies?
-    log:
-      value_types:
-        assembly_presenter:
-          not_found: 'De overlegcommissie is niet gevonden in de database (ID: %{id})'
-        assembly_type_presenter:
-          not_found: 'Dit type overlegcommissie is niet gevonden in de database (ID: %{id})'
-    menu:
-      assemblies: Overlegcommissies
-    metrics:
-      assemblies:
-        description: Aantal aangemaakte overlegcommissies
-        object: overlegcommissies
-        title: Overlegcommissies
+            conferences_button_title: Link to the Conferences page displaying all the conferences
+
     pages:
       home:
         hero:
-          participate_title: Neem deel aan de processen van het platform
+          participate_title: Participate to the platform's processes
         sub_hero:
-          register_title: Registreer om een account op het platform aan te maken
+          register_title: Sign up to create an account on the platform
     participatory_processes:
       pages:
         home:
           highlighted_processes:
-            processes_button_title: Link naar de pagina Processen die alle processen weergeeft
-      show:
-        related_assemblies: Verwante assemblies
-  errors:
-    messages:
-      cannot_be_blank: mag niet leeg zijn
-  layouts:
-    decidim:
-      assemblies:
-        assembly:
-          more_info: Meer informatie
-          take_part: Deelnemen
-        index:
-          children: 'Overlegcommissies: '
-          organizational_chart: Organogram
-          promoted_assemblies: Uitgelichte overlegcommissies
-          reset_chart: Reset
-        order_by_assemblies:
-          assemblies:
-            one: "%{count} overlegcommissie"
-            other: "%{count} overlegcommissies"
-        promoted_assembly:
-          more_info: Meer informatie
-          take_part: Deelnemen
-      assembly_navigation:
-        assembly_member_menu_item: Leden
-        assembly_menu_item: De bijeenkomst
-      assembly_widgets:
-        show:
-          take_part: Deelnemen
+            processes_button_title: Link to the Processes page displaying all the processes
