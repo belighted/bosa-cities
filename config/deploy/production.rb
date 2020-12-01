@@ -14,6 +14,12 @@ set :application, 'bosa'
 set :deploy_to, deploy_path
 set :rails_env, 'production'
 
+# sidekiq systemd options
+set :sidekiq_service_unit_name, 'sidekiq-bosa-cities.service'
+set :sidekiq_service_unit_user, 'webuser'
+set :sidekiq_enable_lingering, true
+set :sidekiq_lingering_user, nil
+
 # role-based syntax
 # ==================
 

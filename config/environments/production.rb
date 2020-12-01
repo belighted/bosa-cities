@@ -105,7 +105,7 @@ Rails.application.configure do
 
   # Use a different cache store in production.
   config.cache_store = :redis_cache_store, {
-    url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" }
+    url: ENV.fetch("REDIS_URL") { "redis://localhost:6379/2" }
   }
 
   if ENV["ELASTICACHE_STORE"].present?

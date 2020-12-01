@@ -5,7 +5,7 @@ require 'capistrano-db-tasks'
 
 set :application, 'bosa'
 set :branch, ENV.fetch('BRANCH', 'master')
-set :repo_url, 'git@github.com:belighted/bosa.git'
+set :repo_url, 'git@github.com:belighted/bosa-cities.git '
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, "/home/webuser/#{fetch(:application)}"
