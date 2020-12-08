@@ -69,6 +69,30 @@ user.save!
 *. Set the correct default host for the organization, otherwise the app will not work properly. Note that you need to include any subdomain you might be using.
 *. Fill the rest of the form and submit it.
 
+### [optional] Create an admin user for a brand new organization
+It is already done by decidim seeds for default organization,
+but when you create a new organization there would be no admin users in it.
+
+```
+organization = Decidim::Organization.find(_YOUR_ORG_ID_)
+user = Decidim::User.initialize_by(email: "admin@example.org")
+user.update!(
+    name: Faker::Name.name,
+    nickname: Faker::Twitter.unique.screen_name,
+    password: "decidim123456",
+    password_confirmation: "decidim123456",
+    organization: organization,
+    confirmed_at: Time.current,
+    locale: I18n.default_locale,
+    admin: true,
+    tos_agreement: true,
+    personal_url: Faker::Internet.url,
+    about: Faker::Lorem.paragraph(2),
+    accepted_tos_version: organization.tos_version,
+    admin_terms_accepted_at: Time.current
+)
+```
+
 You're good to go!
 
 ## Capistrano deployment
