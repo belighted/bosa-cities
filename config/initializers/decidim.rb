@@ -2,8 +2,8 @@
 
 Decidim.configure do |config|
   config.application_name = "bosa"
-  config.mailer_sender = "no-reply@belighted.com"
-  config.mailer_reply = "no-reply@belighted.com"
+  config.mailer_sender = "no-reply@democratie.brussels"
+  config.mailer_reply = "no-reply@democratie.brussels"
 
   # Change these lines to set your preferred locales
   config.default_locale = :en

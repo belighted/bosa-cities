@@ -116,7 +116,7 @@ fr:
               other: et %{account} plus
             photos: Photos
             proposals: Propositions
-            ranking: "%{classement} de %{total}"
+            ranking: "%{ranking} de %{total}"
             related_meetings: Réunions connexes
             remove_assignment: Supprimer l'affectation
             remove_assignment_confirmation: Êtes-vous sûr de vouloir retirer l'évaluateur de cette proposition ?
