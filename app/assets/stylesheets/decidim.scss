@@ -272,6 +272,10 @@ a.button.small > .icon {
   margin-left: .15rem;
 }
 
+.reveal#urlShare input[readonly] {
+  cursor: text;
+}
+
 .initiative {
   // .follow-section { display: none; }
 
