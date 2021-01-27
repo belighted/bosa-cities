@@ -25,12 +25,13 @@ GIT
 
 GIT
   remote: https://github.com/belighted/decidim-module-verifications_omniauth
-  revision: 1dac58e20fb2a3e0dbfc5b74585022440624e941
+  revision: 97bdcc2fd237408a83bfa4a09fae697e6428c52d
   branch: 0.22.0
   specs:
     decidim-verifications_omniauth (0.22.0)
       decidim-core (= 0.22.0)
       decidim-verifications (= 0.22.0)
+      mongoid (~> 7.2.0)
       omniauth-saml (~> 1.10)
       savon (~> 2.12.0)
       signer
@@ -322,6 +323,7 @@ GEM
     bootsnap (1.4.6)
       msgpack (~> 1.0)
     browser (2.7.1)
+    bson (4.11.1)
     builder (3.2.4)
     byebug (11.1.1)
     capistrano (3.14.1)
@@ -598,6 +600,11 @@ GEM
       tomlrb
     mixlib-shellout (3.1.6)
       chef-utils
+    mongo (2.14.0)
+      bson (>= 4.8.2, < 5.0.0)
+    mongoid (7.2.0)
+      activemodel (>= 5.1, < 6.1)
+      mongo (>= 2.10.5, < 3.0.0)
     msgpack (1.3.3)
     multi_json (1.15.0)
     multi_xml (0.6.0)
