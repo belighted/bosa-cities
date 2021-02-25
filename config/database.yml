@@ -35,6 +35,7 @@ test:
   database: bosa_cities_test
 
 staging:
+  <<: *default
   database: <%= ENV['DATABASE_NAME'] %>
 
 production:
