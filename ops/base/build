@@ -2,9 +2,10 @@
 
 set -e
 
-IMAGE_NAME="base.bosa-cities.belighted.com/bosa-cities-base"
+IMAGE_NAME="registry-bosa-city-base.bosa.belighted.com/bosa-city-base"
 TAG=${TAG:-"latest"}
 
 runpath="$( cd "$(dirname "$0")" ; pwd -P )"
 (cd ${runpath} &&
-     docker build --file ${runpath}/Dockerfile --pull --tag $IMAGE_NAME:$TAG ../..)
+     docker build --file ${runpath}/Dockerfile --pull --tag $IMAGE_NAME:$TAG ../.. &&
+     docker push $IMAGE_NAME:$TAG)

@@ -46,8 +46,8 @@ To build and push the application and assets images, run the following:
 ./ops/release/test_runner/build
 
 # Use test_runner to compile assets:
-docker run -e RAILS_ENV=production --env-file $PWD/ops/release/test_runner/app_env -v $PWD/public:/app/public bosa-testrunner:latest bundle exec rake assets:clean
-docker run -e RAILS_ENV=production --env-file $PWD/ops/release/test_runner/app_env -v $PWD/public:/app/public bosa-testrunner:latest bundle exec rake assets:precompile
+docker run -e RAILS_ENV=production --env-file $PWD/ops/release/test_runner/app_env -v $PWD/public:/app/public bosa-cities-testrunner:latest bundle exec rake assets:clean
+docker run -e RAILS_ENV=production --env-file $PWD/ops/release/test_runner/app_env -v $PWD/public:/app/public bosa-cities-testrunner:latest bundle exec rake assets:precompile
 
 # Build and push app image:
 TAG=some_tag ./ops/release/app/build

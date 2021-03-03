@@ -1,4 +1,4 @@
-FROM base.bosa-cities.belighted.com/bosa-cities-base:latest
+FROM registry-bosa-docker.bosa.belighted.com/bosa-city-base:latest
 
 # Configure locale, bundler, define app dir
 ENV BUNDLE_WITHOUT=production:test

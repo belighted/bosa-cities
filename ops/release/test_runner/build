@@ -2,7 +2,7 @@
 
 set -e
 
-IMAGE_NAME="bosa-testrunner"
+IMAGE_NAME="bosa-cities-testrunner"
 TAG=${TAG:-"latest"}
 
 runpath="$( cd "$(dirname "$0")" ; pwd -P )"
