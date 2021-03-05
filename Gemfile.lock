@@ -297,6 +297,8 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     anchored (1.1.0)
+    appsignal (3.0.0)
+      rack
     arel (9.0.0)
     ast (2.4.1)
     autoprefixer-rails (8.6.5)
@@ -936,6 +938,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  appsignal
   bootsnap
   byebug (~> 11.0)
   capistrano (~> 3.10)

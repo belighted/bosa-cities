@@ -2,7 +2,7 @@
 
 require "active_support/concern"
 
-module UpdateOrganizationExtend
+module AdminUpdateOrganizationExtend
   extend ActiveSupport::Concern
 
   included do
@@ -35,4 +35,4 @@ module UpdateOrganizationExtend
   end
 end
 
-Decidim::Admin::UpdateOrganization.send(:include, UpdateOrganizationExtend)
+Decidim::Admin::UpdateOrganization.send(:include, AdminUpdateOrganizationExtend)

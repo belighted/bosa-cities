@@ -31,7 +31,6 @@ module DecidimAws
       list.each {|override| require_dependency override}
     end
 
-    # Turn off :active_record_store because it fails to handle initiative/suggestion attachments
     initializer "Expire sessions" do
       Rails.application.config.session_store :active_record_store, key: '_decidim_session'
       ActiveRecord::SessionStore::Session.serializer = :json
@@ -53,5 +52,10 @@ module DecidimAws
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # Basic auth
+    config.basic_auth_required = ENV.fetch('BASIC_AUTH_REQUIRED', 1).to_i == 1
+    config.basic_auth_username = ENV['BASIC_AUTH_USERNAME']
+    config.basic_auth_password = ENV['BASIC_AUTH_PASSWORD']
   end
 end

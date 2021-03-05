@@ -10,9 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_21_131402) do
+ActiveRecord::Schema.define(version: 2021_01_28_145301) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "btree_gin"
   enable_extension "ltree"
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
@@ -311,6 +312,52 @@ ActiveRecord::Schema.define(version: 2020_10_21_131402) do
     t.float "longitude"
     t.index ["decidim_component_id"], name: "index_decidim_budgets_projects_on_decidim_component_id"
     t.index ["decidim_scope_id"], name: "index_decidim_budgets_projects_on_decidim_scope_id"
+  end
+
+  create_table "decidim_casting_data_rows", force: :cascade do |t|
+    t.bigint "decidim_casting_id", null: false
+    t.jsonb "attrs", default: {}, null: false
+    t.text "raw_data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decidim_casting_id", "id", "attrs"], name: "index_decidim_casting_data_rows_on_attrs", using: :gin
+  end
+
+  create_table "decidim_casting_results", force: :cascade do |t|
+    t.bigint "decidim_casting_id", null: false
+    t.integer "run_number", default: 1, null: false
+    t.integer "number_of_trials"
+    t.jsonb "statistics"
+    t.string "candidates_file"
+    t.string "substitutes_file"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decidim_casting_id"], name: "index_decidim_casting_results_on_decidim_casting_id"
+  end
+
+  create_table "decidim_castings", force: :cascade do |t|
+    t.bigint "decidim_organization_id", null: false
+    t.bigint "decidim_author_id", null: false
+    t.string "decidim_author_type", null: false
+    t.string "title", null: false
+    t.text "description"
+    t.string "status", default: "created", null: false
+    t.jsonb "status_errors"
+    t.string "data_source", default: "file", null: false
+    t.datetime "data_source_imported_at"
+    t.string "file", null: false
+    t.string "file_content_type", null: false
+    t.string "file_size", null: false
+    t.boolean "file_first_row_is_a_header", default: true, null: false
+    t.string "file_columns_separator", default: ",", null: false
+    t.jsonb "data_source_statistics"
+    t.jsonb "attrs_mapping"
+    t.integer "amount_of_candidates", default: 0, null: false
+    t.jsonb "selection_criteria"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decidim_author_id", "decidim_author_type"], name: "index_decidim_castings_on_decidim_author"
+    t.index ["decidim_organization_id", "status"], name: "index_decidim_castings_on_decidim_organization_id_and_status"
   end
 
   create_table "decidim_categories", id: :serial, force: :cascade do |t|
@@ -935,6 +982,8 @@ ActiveRecord::Schema.define(version: 2020_10_21_131402) do
     t.jsonb "admin_terms_of_use_body"
     t.string "time_zone", limit: 255, default: "UTC"
     t.string "deepl_api_key"
+    t.jsonb "initiatives_settings"
+    t.jsonb "suggestions_settings"
     t.index ["host"], name: "index_decidim_organizations_on_host", unique: true
     t.index ["name"], name: "index_decidim_organizations_on_name", unique: true
   end
@@ -1326,6 +1375,7 @@ ActiveRecord::Schema.define(version: 2020_10_21_131402) do
     t.bigint "decidim_area_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "answer_date"
     t.index "md5((description)::text)", name: "decidim_suggestions_description_search"
     t.index ["answered_at"], name: "index_decidim_suggestions_on_answered_at"
     t.index ["decidim_area_id"], name: "index_decidim_suggestions_on_decidim_area_id"
