@@ -1,4 +1,13 @@
 GIT
+  remote: https://github.com/belighted/decidim-module-castings
+  revision: d5c478861e723de4e307ee1b9b13b79021c9830c
+  branch: 0.22.0
+  specs:
+    decidim-castings (0.22.0)
+      decidim-admin (= 0.22.0)
+      decidim-core (= 0.22.0)
+
+GIT
   remote: https://github.com/belighted/decidim-module-cookies
   revision: 49826b5fc90992604c83b181913fe41de330e665
   branch: 0.22.0
@@ -297,6 +306,8 @@ GEM
       gyoku (>= 0.4.0)
       nokogiri
     anchored (1.1.0)
+    appsignal (3.0.0)
+      rack
     arel (9.0.0)
     ast (2.4.1)
     autoprefixer-rails (8.6.5)
@@ -936,6 +947,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-session_store
+  appsignal
   bootsnap
   byebug (~> 11.0)
   capistrano (~> 3.10)
@@ -946,6 +958,7 @@ DEPENDENCIES
   capistrano3-puma
   database_cleaner-active_record
   decidim (= 0.22.0)!
+  decidim-castings!
   decidim-cookies!
   decidim-dev (= 0.22.0)
   decidim-navbar_links!

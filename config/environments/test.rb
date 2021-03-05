@@ -47,7 +47,4 @@ Rails.application.configure do
   # No precompilation on demand on first request
   config.assets.check_precompiled_asset = false
 
-  # Basic auth
-  config.basic_auth_required = false
-
 end

@@ -47,11 +47,11 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  config.force_ssl = false
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :debug
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", :info)
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
@@ -113,10 +113,5 @@ Rails.application.configure do
   if ENV["ELASTICACHE_STORE"].present?
     config.cache_store = :dalli_store, Dalli::ElastiCache.new(ENV["ELASTICACHE_HOST"]).servers, { :expires_in => 1.day, :compress => true }
   end
-
-  # Basic auth
-  config.basic_auth_required = true
-  config.basic_auth_username = ENV['BASIC_AUTH_USERNAME']
-  config.basic_auth_password = ENV['BASIC_AUTH_PASSWORD']
 
 end

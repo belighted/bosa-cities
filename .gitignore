@@ -30,8 +30,12 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 /config/credentials.yml.enc
-.env
+/.env
 .ops/.gitconfig
+*.secrets
+
+# Ignore Docker override files
+docker-compose.override.yml
 
 # Ignore public uploads
 public/uploads

@@ -35,11 +35,11 @@ test:
   database: bosa_cities_test
 
 staging:
-  url: <%= ENV['DATABASE_URL'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
 
 production:
   <<: *default
-  database: <%= ENV['DATABASE_URL'] %>
+  database: <%= ENV['DATABASE_NAME'] %>
 
 
   # The specified database role being used to connect to postgres.

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+set -e
+
+IMAGE_NAME="registry-bosa-assets.bosa.belighted.com/bosa-assets"
+TAG=${TAG:-"latest"}
+
+runpath="$( cd "$(dirname "$0")" ; pwd -P )"
+#(cd ${runpath} &&
+#     docker build --file ${runpath}/Dockerfile --pull --tag $IMAGE_NAME:$TAG ../../.. &&
+#     docker push $IMAGE_NAME:$TAG)
+
+(cd ${runpath} &&
+     docker build --file ${runpath}/Dockerfile --pull --tag $IMAGE_NAME:$TAG ../../.. )

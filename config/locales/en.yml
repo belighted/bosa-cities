@@ -45,6 +45,8 @@ en:
       dummy_authorization_handler:
         name: BOSA dummy authorization
         explanation: Add additional informations to your account
+        fields:
+          scope_id: Scope
     authorization_modals:
       content:
         unauthorized:

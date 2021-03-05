@@ -11,8 +11,10 @@ gem 'decidim-verifications_omniauth', git: 'https://github.com/belighted/decidim
 gem 'decidim-term_customizer', git: 'https://github.com/belighted/decidim-module-term_customizer', branch: DECIDIM_VERSION
 gem 'decidim-cookies', git: 'https://github.com/belighted/decidim-module-cookies', branch: DECIDIM_VERSION
 gem 'decidim-navbar_links', git: 'https://github.com/belighted/decidim-module-navbar_links', branch: DECIDIM_VERSION
+gem 'decidim-castings', git: 'https://github.com/belighted/decidim-module-castings', branch: DECIDIM_VERSION
 
 # ----------------------------------------------------------------------------------------------------------------------
+gem 'appsignal'
 gem 'activerecord-session_store'
 gem 'bootsnap'
 gem 'deepl-rb'
