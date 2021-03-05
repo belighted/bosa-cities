@@ -1,13 +1,4 @@
 GIT
-  remote: https://github.com/belighted/decidim-module-castings
-  revision: d5c478861e723de4e307ee1b9b13b79021c9830c
-  branch: 0.22.0
-  specs:
-    decidim-castings (0.22.0)
-      decidim-admin (= 0.22.0)
-      decidim-core (= 0.22.0)
-
-GIT
   remote: https://github.com/belighted/decidim-module-cookies
   revision: 49826b5fc90992604c83b181913fe41de330e665
   branch: 0.22.0
@@ -958,7 +949,6 @@ DEPENDENCIES
   capistrano3-puma
   database_cleaner-active_record
   decidim (= 0.22.0)!
-  decidim-castings!
   decidim-cookies!
   decidim-dev (= 0.22.0)
   decidim-navbar_links!
