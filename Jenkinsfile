@@ -127,7 +127,7 @@ podTemplate(
                                     "${kube_conf_url}",
                                     "bosa-cities",
                                     "bosa-prod",
-                                    ["bosa-app-prod", "bosa-assets-prod" ],
+                                    ["bosa-cities", "bosa-cities-assets" ],
                                     ["${docker_img_group}/bosa:$job_base_name", "${docker_img_group}/bosa-assets:$job_base_name"]
                             )
                         }
@@ -138,7 +138,7 @@ podTemplate(
                                     "${kube_conf_url}",
                                     "bosa-cities-sidekiq",
                                     "bosa-prod",
-                                    ["bosa-sidekiq-prod" ],
+                                    ["bosa-sidekiq" ],
                                     ["${docker_img_group}/bosa-city:$job_base_name"]
                             )
                         }
@@ -151,7 +151,7 @@ podTemplate(
                                     "${kube_conf_url}",
                                     "bosa-cities",
                                     "bosa-uat",
-                                    ["bosa-cities-uat", "bosa-cities-assets-uat" ],
+                                    ["bosa-cities", "bosa-cities-assets" ],
                                     ["${docker_img_group}/bosa-city:$job_base_name", "${docker_img_group}/bosa-city-assets:$job_base_name"]
                             )
                         }
@@ -162,7 +162,7 @@ podTemplate(
                                     "${kube_conf_url}",
                                     "bosa-cities-sidekiq",
                                     "bosa-uat",
-                                    ["bosa-cities-sidekiq-uat" ],
+                                    ["bosa-cities-sidekiq" ],
                                     ["${docker_img_group}/bosa-city:$job_base_name"]
                             )
                         }
@@ -175,7 +175,7 @@ podTemplate(
                                     "${kube_conf_url}",
                                     "bosa-cities",
                                     "bosa-dev",
-                                    ["bosa-cities-dev", "bosa-cities-assets-dev" ],
+                                    ["bosa-cities", "bosa-cities-assets" ],
                                     ["${docker_img_group}/bosa-city:$job_base_name-$build_number", "${docker_img_group}/bosa-city-assets:$job_base_name-$build_number"]
                             )
                         }
@@ -186,7 +186,7 @@ podTemplate(
                                     "${kube_conf_url}",
                                     "bosa-cities-sidekiq",
                                     "bosa-dev",
-                                    ["bosa-cities-sidekiq-dev" ],
+                                    ["bosa-cities-sidekiq" ],
                                     ["${docker_img_group}/bosa-city:$job_base_name-$build_number"]
                             )
                         }
