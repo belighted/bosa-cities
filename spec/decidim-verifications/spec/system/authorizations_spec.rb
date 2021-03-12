@@ -79,7 +79,8 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
           click_link "My account"
         end
 
-        click_link "Authorizations"
+        # click_link "Authorizations"
+        visit decidim_verifications.authorizations_path
         click_link "BOSA dummy authorization"
 
         fill_in "Document number", with: "123456789X"
@@ -90,7 +91,8 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
         expect(page).to have_content("You've been successfully authorized")
 
         within "#user-settings-tabs" do
-          click_link "Authorizations"
+          # click_link "Authorizations"
+          visit decidim_verifications.authorizations_path
         end
 
         within ".authorizations-list" do
@@ -104,7 +106,8 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
           click_link "My account"
         end
 
-        click_link "Authorizations"
+        # click_link "Authorizations"
+        visit decidim_verifications.authorizations_path
         click_link "BOSA dummy authorization"
 
         fill_in "Document number", with: "12345678"
@@ -128,7 +131,8 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
           click_link "My account"
         end
 
-        click_link "Authorizations"
+        # click_link "Authorizations"
+        visit decidim_verifications.authorizations_path
 
         within ".authorizations-list" do
           expect(page).to have_content("BOSA dummy authorization")
@@ -146,7 +150,8 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
               click_link "My account"
             end
 
-            click_link "Authorizations"
+            # click_link "Authorizations"
+            visit decidim_verifications.authorizations_path
 
             within ".authorizations-list" do
               expect(page).to have_no_link("BOSA dummy authorization")
@@ -165,7 +170,8 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
               click_link "My account"
             end
 
-            click_link "Authorizations"
+            # click_link "Authorizations"
+            visit decidim_verifications.authorizations_path
 
             within ".authorizations-list" do
               expect(page).to have_link("BOSA dummy authorization")
@@ -178,7 +184,8 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
               click_link "My account"
             end
 
-            click_link "Authorizations"
+            # click_link "Authorizations"
+            visit decidim_verifications.authorizations_path
             click_link "BOSA dummy authorization"
 
             within "#renew-modal" do
@@ -194,7 +201,8 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
               within_user_menu do
                 click_link "My account"
               end
-              click_link "Authorizations"
+              # click_link "Authorizations"
+              visit decidim_verifications.authorizations_path
               click_link "BOSA dummy authorization"
               within "#renew-modal" do
                 click_link "Continue"
@@ -217,7 +225,8 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
             click_link "My account"
           end
 
-          click_link "Authorizations"
+          # click_link "Authorizations"
+          visit decidim_verifications.authorizations_path
 
           within ".authorizations-list" do
             expect(page).to have_no_link("BOSA dummy authorization")
@@ -236,7 +245,8 @@ describe "Authorizations", type: :system, with_authorization_workflows: ["dummy_
             click_link "My account"
           end
 
-          click_link "Authorizations"
+          # click_link "Authorizations"
+          visit decidim_verifications.authorizations_path
 
           within ".authorizations-list" do
             expect(page).to have_link("BOSA dummy authorization")

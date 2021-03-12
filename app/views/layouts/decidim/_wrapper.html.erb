@@ -58,7 +58,11 @@ end
                 <%= link_to decidim.conversations_path, title: "conversations-link", class: "topbar__conversations #{current_user.unread_conversations.any? ? "is-active" : ""}" do %>
                   <%= icon "envelope-closed", role: "img" %>
                 <% end %>
-                <ul class="dropdown menu" data-dropdown-menu>
+                <ul class="dropdown menu" data-dropdown-menu
+                    data-autoclose="false"
+                    data-disable-hover="false"
+                    data-click-open="true"
+                    data-close-on-click="true">
                   <li class="is-dropdown-submenu-parent show-for-medium">
                     <% if current_user.identities.present? && current_user.identities.first.provider.match(/^france_connect.*/) %>
                       <% provider = current_user.identities.first.provider %>
