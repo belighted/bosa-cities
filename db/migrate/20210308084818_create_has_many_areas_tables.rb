@@ -31,8 +31,8 @@ class CreateHasManyAreasTables < ActiveRecord::Migration[5.2]
     add_index :decidim_participatory_processes_areas, [:decidim_participatory_process_id, :decidim_area_id], unique: true, name: 'index_unique_participatory_process_and_area'
 
     [
-      Decidim::Suggestion,
-      Decidim::Initiative,
+      # Decidim::Suggestion,
+      # Decidim::Initiative,
       Decidim::Assembly,
       Decidim::ParticipatoryProcess
     ].each do |entity|
@@ -48,8 +48,8 @@ class CreateHasManyAreasTables < ActiveRecord::Migration[5.2]
 
   def down
     [
-      Decidim::Suggestion,
-      Decidim::Initiative,
+      # Decidim::Suggestion,
+      # Decidim::Initiative,
       Decidim::Assembly,
       Decidim::ParticipatoryProcess
     ].each do |entity|
