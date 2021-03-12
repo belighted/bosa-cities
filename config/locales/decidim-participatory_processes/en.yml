@@ -1,0 +1,6 @@
+---
+en:
+  activemodel:
+    attributes:
+      participatory_process:
+        area_ids: Areas

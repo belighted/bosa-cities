@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_28_145301) do
+ActiveRecord::Schema.define(version: 2021_03_08_084818) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
@@ -178,6 +178,15 @@ ActiveRecord::Schema.define(version: 2021_01_28_145301) do
     t.index ["decidim_organization_id"], name: "index_decidim_assemblies_on_decidim_organization_id"
     t.index ["decidim_scope_id"], name: "index_decidim_assemblies_on_decidim_scope_id"
     t.index ["parent_id"], name: "decidim_assemblies_assemblies_on_parent_id"
+  end
+
+  create_table "decidim_assemblies_areas", force: :cascade do |t|
+    t.bigint "decidim_assembly_id", null: false
+    t.bigint "decidim_area_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decidim_area_id"], name: "index_decidim_assemblies_areas_on_decidim_area_id"
+    t.index ["decidim_assembly_id", "decidim_area_id"], name: "index_unique_assembly_and_area", unique: true
   end
 
   create_table "decidim_assemblies_settings", force: :cascade do |t|
@@ -658,6 +667,15 @@ ActiveRecord::Schema.define(version: 2021_01_28_145301) do
     t.index ["title"], name: "decidim_initiatives_title_search"
   end
 
+  create_table "decidim_initiatives_areas", force: :cascade do |t|
+    t.bigint "decidim_initiative_id", null: false
+    t.bigint "decidim_area_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decidim_area_id"], name: "index_decidim_initiatives_areas_on_decidim_area_id"
+    t.index ["decidim_initiative_id", "decidim_area_id"], name: "index_unique_initiative_and_area", unique: true
+  end
+
   create_table "decidim_initiatives_committee_members", force: :cascade do |t|
     t.bigint "decidim_initiatives_id"
     t.bigint "decidim_users_id"
@@ -1074,6 +1092,15 @@ ActiveRecord::Schema.define(version: 2021_01_28_145301) do
     t.index ["decidim_scope_type_id"], name: "index_decidim_participatory_processes_on_decidim_scope_type_id"
   end
 
+  create_table "decidim_participatory_processes_areas", force: :cascade do |t|
+    t.bigint "decidim_participatory_process_id", null: false
+    t.bigint "decidim_area_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decidim_area_id"], name: "index_decidim_participatory_processes_areas_on_decidim_area_id"
+    t.index ["decidim_participatory_process_id", "decidim_area_id"], name: "index_unique_participatory_process_and_area", unique: true
+  end
+
   create_table "decidim_participatory_space_links", id: :serial, force: :cascade do |t|
     t.string "from_type", null: false
     t.integer "from_id", null: false
@@ -1387,6 +1414,15 @@ ActiveRecord::Schema.define(version: 2021_01_28_145301) do
     t.index ["scoped_type_id"], name: "index_decidim_suggestions_on_scoped_type_id"
     t.index ["second_progress_notification_at"], name: "index_decidim_suggestions_on_second_progress_notification_at"
     t.index ["title"], name: "decidim_suggestions_title_search"
+  end
+
+  create_table "decidim_suggestions_areas", force: :cascade do |t|
+    t.bigint "decidim_suggestion_id", null: false
+    t.bigint "decidim_area_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decidim_area_id"], name: "index_decidim_suggestions_areas_on_decidim_area_id"
+    t.index ["decidim_suggestion_id", "decidim_area_id"], name: "index_unique_suggestion_and_area", unique: true
   end
 
   create_table "decidim_suggestions_committee_members", force: :cascade do |t|

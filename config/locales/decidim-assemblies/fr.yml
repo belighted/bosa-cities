@@ -3,6 +3,7 @@ fr:
   activemodel:
     attributes:
       assembly:
+        area_ids: Zones
         decidim_assemblies_type_id: Type d'assemblée
 
   decidim:

@@ -3,6 +3,7 @@ nl:
   activemodel:
     attributes:
       participatory_process:
+        area_ids: Gebieden
         scope_type_max_depth_id: Scope filter depth
         show_metrics: Show metrics
 

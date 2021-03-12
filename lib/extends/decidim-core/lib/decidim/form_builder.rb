@@ -6,29 +6,6 @@ module FormBuilderExtend
   extend ActiveSupport::Concern
 
   included do
-    def areas_select(name, collection, options = {}, html_options = {})
-      selectables = if collection.first.is_a?(Decidim::Area)
-                      assemblies = collection
-                                   .map { |a| [a.name[I18n.locale.to_s], a.id] }
-                                   .sort_by { |arr| arr[0] }
-
-                      @template.options_for_select(
-                        assemblies,
-                        selected: options[:selected]
-                      )
-                    else
-                      @template.option_groups_from_collection_for_select(
-                        collection,
-                        :areas,
-                        :translated_name,
-                        :id,
-                        :translated_name,
-                        selected: options[:selected]
-                      )
-                    end
-
-      select(name, selectables, options, html_options)
-    end
 
     def date_field(attribute, options = {})
       value = object.send(attribute)
@@ -73,8 +50,11 @@ module FormBuilderExtend
       template += if options[:accept].present?
                     @template.file_field @object_name, attribute, accept: options.delete(:accept)
                   else
-                    @template.file_field @object_name, attribute
+                    @template.file_field @object_name, attribute, style: 'width: 95%'
                   end
+      if options[:clear_icon]
+        template += @template.icon_link_to('circle-x', '', I18n.t("actions.destroy", scope: "decidim.admin"), class: 'clear-attachment float-right')
+      end
 
       if file_is_image?(file)
         template += if file.present?

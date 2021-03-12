@@ -3,6 +3,7 @@ nl:
   activemodel:
     attributes:
       assembly:
+        area_ids: Gebieden
         decidim_assemblies_type_id: Assembly type
 
   decidim:

@@ -1,0 +1,6 @@
+---
+en:
+  activemodel:
+    attributes:
+      assembly:
+        area_ids: Areas

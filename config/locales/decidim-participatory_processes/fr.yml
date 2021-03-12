@@ -3,6 +3,7 @@ fr:
   activemodel:
     attributes:
       participatory_process:
+        area_ids: Zones
         related_process_ids: Processus connexes
         scope_type_max_depth_id: Profondeur du filtre
         show_metrics: Afficher les mesures
