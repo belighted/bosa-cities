@@ -22,13 +22,24 @@ environment ENV.fetch("RAILS_ENV") { "development" }
 # processes).
 #
 # workers ENV.fetch("WEB_CONCURRENCY") { 2 }
+current_cpu_count = begin
+                      Integer(`nproc`)
+                    rescue
+                      2
+                    end
+workers Integer(ENV.fetch("WEB_CONCURRENCY", current_cpu_count))
 
 # Use the `preload_app!` method when specifying a `workers` number.
 # This directive tells Puma to first boot the application and load code
 # before forking the application. This takes advantage of Copy On Write
 # process behavior so workers use less memory.
 #
-# preload_app!
+preload_app!
+
+on_worker_boot do
+  # Valid on Rails 4.1+ using the `config/database.yml` method of setting `pool` size
+  ActiveRecord::Base.establish_connection
+end
 
 # Allow puma to be restarted by `rails restart` command.
 plugin :tmp_restart
