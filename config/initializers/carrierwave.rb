@@ -2,25 +2,21 @@
 
 # Default CarrierWave setup.
 
-if Rails.application.secrets.dig(:scaleway, :id).present? && Rails.env.production?
+cw_creds = Rails.application.secrets.dig(:carrierwave)
+if cw_creds.dig(:enabled).try(:upcase) == "TRUE" && (Rails.env.production? || Rails.env.staging?)
   CarrierWave.configure do |config|
     config.fog_provider = 'fog/aws'
     config.fog_credentials = {
-      provider: 'AWS',
-      aws_access_key_id: Rails.application.secrets.dig(:scaleway, :id),
-      aws_secret_access_key: Rails.application.secrets.dig(:scaleway, :token),
-      aws_signature_version: 4,
-      region: "fr-par",
-      host: "s3.fr-par.scw.cloud",
-      endpoint: "https://s3.fr-par.scw.cloud",
-      enable_signature_v4_streaming: false
+      provider: cw_creds.dig(:provider),
+      aws_access_key_id: cw_creds.dig(:aws_access_key_id),
+      aws_secret_access_key: cw_creds.dig(:aws_secret_access_key),
+      region: cw_creds.dig(:region),
+      host: cw_creds.dig(:host),
+      endpoint: cw_creds.dig(:endpoint),
+      path_style: cw_creds.dig(:path_style),
     }
+    config.fog_directory = cw_creds.dig(:fog_directory),
     config.storage = :fog
-    config.fog_directory = Rails.application.secrets.dig(:scaleway, :bucket_name) { "bosa-bucket" }
-    config.fog_attributes = {
-      'Cache-Control' => "max-age=#{365.day.to_i}",
-      'X-Content-Type-Options' => "nosniff"
-    }
   end
 else
   CarrierWave.configure do |config|
