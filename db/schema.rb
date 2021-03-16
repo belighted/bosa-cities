@@ -148,9 +148,9 @@ ActiveRecord::Schema.define(version: 2021_03_08_084818) do
     t.boolean "show_statistics", default: false
     t.integer "decidim_scope_id"
     t.boolean "scopes_enabled", default: true, null: false
-    t.boolean "private_space", default: false
     t.string "reference"
     t.bigint "decidim_area_id"
+    t.boolean "private_space", default: false
     t.bigint "parent_id"
     t.ltree "parents_path"
     t.integer "children_count", default: 0
@@ -983,6 +983,7 @@ ActiveRecord::Schema.define(version: 2021_03_08_084818) do
     t.jsonb "highlighted_content_banner_action_subtitle"
     t.string "highlighted_content_banner_action_url"
     t.string "highlighted_content_banner_image"
+    t.string "polis_site_id"
     t.datetime "tos_version"
     t.boolean "badges_enabled", default: false, null: false
     t.boolean "send_welcome_notification", default: false, null: false
@@ -992,14 +993,15 @@ ActiveRecord::Schema.define(version: 2021_03_08_084818) do
     t.string "id_documents_methods", default: ["online"], array: true
     t.jsonb "id_documents_explanation_text", default: {}
     t.boolean "user_groups_enabled", default: false, null: false
-    t.jsonb "colors", default: {}
     t.jsonb "smtp_settings"
-    t.boolean "force_users_to_authenticate_before_access_organization", default: false
+    t.jsonb "colors", default: {}
+    t.string "deepl_api_key"
+    t.integer "comments_max_length", default: 1000
     t.jsonb "omniauth_settings"
+    t.boolean "force_users_to_authenticate_before_access_organization", default: false
     t.boolean "rich_text_editor_in_public_views", default: false
     t.jsonb "admin_terms_of_use_body"
     t.string "time_zone", limit: 255, default: "UTC"
-    t.string "deepl_api_key"
     t.jsonb "initiatives_settings"
     t.jsonb "suggestions_settings"
     t.index ["host"], name: "index_decidim_organizations_on_host", unique: true
@@ -1079,8 +1081,8 @@ ActiveRecord::Schema.define(version: 2021_03_08_084818) do
     t.jsonb "announcement"
     t.boolean "scopes_enabled", default: true, null: false
     t.date "start_date"
-    t.boolean "private_space", default: false
     t.string "reference"
+    t.boolean "private_space", default: false
     t.bigint "decidim_area_id"
     t.bigint "decidim_scope_type_id"
     t.boolean "show_metrics", default: true
@@ -1173,7 +1175,7 @@ ActiveRecord::Schema.define(version: 2021_03_08_084818) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "decidim_author_type", null: false
-    t.index "decidim_proposal_id, decidim_author_id, (COALESCE(decidim_user_group_id, ('-1'::integer)::bigint))", name: "decidim_proposals_proposal_endorsmt_proposal_auth_ugroup_uniq", unique: true
+    t.index "decidim_proposal_id, decidim_author_id, COALESCE(decidim_user_group_id, ('-1'::integer)::bigint)", name: "decidim_proposals_proposal_endorsmt_proposal_auth_ugroup_uniq", unique: true
     t.index ["decidim_author_id", "decidim_author_type"], name: "index_decidim_proposals_proposal_endorsements_on_decidim_author"
     t.index ["decidim_proposal_id"], name: "decidim_proposals_proposal_endorsement_proposal"
     t.index ["decidim_user_group_id"], name: "decidim_proposals_proposal_endorsement_user_group"
@@ -1217,9 +1219,9 @@ ActiveRecord::Schema.define(version: 2021_03_08_084818) do
     t.text "address"
     t.float "latitude"
     t.float "longitude"
+    t.integer "proposal_notes_count", default: 0, null: false
     t.integer "proposal_endorsements_count", default: 0, null: false
     t.datetime "published_at"
-    t.integer "proposal_notes_count", default: 0, null: false
     t.integer "coauthorships_count", default: 0, null: false
     t.integer "position"
     t.string "participatory_text_level"
@@ -1579,11 +1581,12 @@ ActiveRecord::Schema.define(version: 2021_03_08_084818) do
     t.string "roles", default: [], array: true
     t.boolean "email_on_notification", default: false, null: false
     t.string "nickname", limit: 20, default: "", null: false
-    t.string "personal_url"
-    t.text "about"
-    t.datetime "accepted_tos_version"
     t.datetime "officialized_at"
     t.jsonb "officialized_as"
+    t.string "personal_url"
+    t.text "about"
+    t.string "uid_name"
+    t.datetime "accepted_tos_version"
     t.string "newsletter_token", default: ""
     t.datetime "newsletter_notifications_at"
     t.string "type", null: false
@@ -1664,15 +1667,6 @@ ActiveRecord::Schema.define(version: 2021_03_08_084818) do
     t.boolean "confidential", default: true, null: false
     t.index ["decidim_organization_id"], name: "index_oauth_applications_on_decidim_organization_id"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
-  end
-
-  create_table "sessions", force: :cascade do |t|
-    t.string "session_id", null: false
-    t.text "data"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
-    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   create_table "versions", force: :cascade do |t|
