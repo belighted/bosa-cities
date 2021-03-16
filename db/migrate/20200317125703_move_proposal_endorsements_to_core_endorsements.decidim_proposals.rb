@@ -2,6 +2,10 @@
 # This migration comes from decidim_proposals (originally 20200120215928)
 
 # This migration must be executed after CreateDecidimEndorsements migration in decidim-core.
+
+
+# nano db/migrate/20200317125703_move_proposal_endorsements_to_core_endorsements.decidim_proposals.rb
+
 class MoveProposalEndorsementsToCoreEndorsements < ActiveRecord::Migration[5.2]
   class ProposalEndorsement < ApplicationRecord
     self.table_name = :decidim_proposals_proposal_endorsements
@@ -16,13 +20,15 @@ class MoveProposalEndorsementsToCoreEndorsements < ActiveRecord::Migration[5.2]
     ).group(:decidim_user_group_id).where.not(decidim_user_group_id: nil).map(&:id)
 
     ProposalEndorsement.where("id IN (?) OR decidim_user_group_id IS NULL", non_duplicated_group_endorsements).find_each do |prop_endorsement|
-      ::Decidim::Endorsement.create!(
+      attrs = {
         resource_type: Decidim::Proposals::Proposal.name,
         resource_id: prop_endorsement.decidim_proposal_id,
         decidim_author_type: prop_endorsement.decidim_author_type,
         decidim_author_id: prop_endorsement.decidim_author_id,
         decidim_user_group_id: prop_endorsement.decidim_user_group_id
-      )
+      }
+      e = ::Decidim::Endorsement.new(attrs)
+      ::Decidim::Endorsement.create!(attrs) if e.valid?
     end
     # update new `decidim_proposals_proposal.endorsements_count` counter cache
     Decidim::Proposals::Proposal.select(:id).all.find_each do |proposal|

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 # This migration comes from decidim_initiatives (originally 20191002082220)
 
+# nano db/migrate/20191203163454_move_signature_type_to_initative_type.decidim_initiatives.rb
+
+
 class MoveSignatureTypeToInitativeType < ActiveRecord::Migration[5.2]
   class InitiativesType < ApplicationRecord
     self.table_name = :decidim_initiatives_types
@@ -23,7 +26,7 @@ class MoveSignatureTypeToInitativeType < ActiveRecord::Migration[5.2]
 
     InitiativesType.reset_column_information
 
-    Decidim::Initiatives::InitiativesType.find_each do |type|
+    Decidim::InitiativesType.find_each do |type|
       type.signature_type = if type.online_signature_enabled && face_to_face_voting_allowed
                               :any
                             elsif type.online_signature_enabled && !face_to_face_voting_allowed

@@ -12,7 +12,8 @@ module AssemblySearchExtend
 
       query.
         joins("JOIN decidim_assemblies_areas ON decidim_assemblies.id = decidim_assemblies_areas.decidim_assembly_id").
-        where(decidim_assemblies_areas: {decidim_area_id: area_id})
+        where(decidim_assemblies_areas: {decidim_area_id: area_id}).
+        group("decidim_assemblies.id")
     end
 
   end
