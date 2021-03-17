@@ -17,6 +17,7 @@ if cw_creds.dig(:enabled).try(:upcase) == "TRUE" && (Rails.env.production? || Ra
     }
     config.fog_directory = cw_creds.dig(:fog_directory)
     config.storage = :fog
+    config.asset_host = cw_creds.dig(:asset_host) if cw_creds.dig(:asset_host).present?
   end
 else
   CarrierWave.configure do |config|
