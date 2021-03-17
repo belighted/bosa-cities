@@ -15,7 +15,7 @@ if cw_creds.dig(:enabled).try(:upcase) == "TRUE" && (Rails.env.production? || Ra
       endpoint: cw_creds.dig(:endpoint),
       path_style: cw_creds.dig(:path_style),
     }
-    config.fog_directory = cw_creds.dig(:fog_directory),
+    config.fog_directory = cw_creds.dig(:fog_directory)
     config.storage = :fog
   end
 else
