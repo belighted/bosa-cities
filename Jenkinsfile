@@ -7,6 +7,7 @@ import groovy.transform.Field
 @Field def jenkins_server_name  = ""
 @Field def branch_name          = ""
 @Field def docker_img_group     = "nexus-group.bosa.belighted.com"
+@Field def docker_img_prod      = "nexus.asergo.com/2483/prod"
 @Field def docker_int_base      = "registry-bosa-city-base.bosa.belighted.com"
 @Field def docker_int_assets    = "registry-bosa-city-assets.bosa.belighted.com"
 @Field def docker_int_app       = "registry-bosa-city.bosa.belighted.com"
@@ -49,77 +50,21 @@ podTemplate(
                     sh "ls -lth"
 
                 }
-                withDockerRegistry([credentialsId: 'nexus-docker-registry', url: "http://${docker_int_group}/"]) {
 
-                    stage("Build test_runner") {
-                        dir("ops/release/test_runner") {
-                            sh "./build"
-                            echo "Done!"
-                        }
-
-                    }
-                    stage("Compile Assets") {
-                        sh """
-                            docker run -e RAILS_ENV=production --env-file ${codePath}/ops/release/test_runner/app_env -v ${codePath}/public:/app/public bosa-cities-testrunner:latest bundle exec rake assets:clean
-                            docker run -e RAILS_ENV=production --env-file ${codePath}/ops/release/test_runner/app_env -v ${codePath}/public:/app/public bosa-cities-testrunner:latest bundle exec rake assets:precompile
-                        """
-
-                    }
-                    stage("Build app image"){
-                        switch (job_base_name){
-                            case ~/^\d+\.\d+\.\d+$/:
-                                    sh "TAG=$job_base_name ${codePath}/ops/release/app/build"
-                                    sh "TAG=$job_base_name ${codePath}/ops/release/assets/build"
-                                // This will push the assets image to registry
-                                    pushToNexus(
-                                            "nexus-docker-registry",
-                                            "http://${docker_int_assets}/",
-                                            "${docker_int_assets}/bosa-city-assets:$job_base_name"
-                                    )
-                                // This will push the app image to registry
-                                    pushToNexus(
-                                            "nexus-docker-registry",
-                                            "http://${docker_int_app}/",
-                                            "${docker_int_app}/bosa-city:$job_base_name"
-                                    )
-                                break
-                            case ~/^rc-\d+\.\d+\.\d+$/:
-                                sh "TAG=$job_base_name ${codePath}/ops/release/app/build"
-                                sh "TAG=$job_base_name ${codePath}/ops/release/assets/build"
-                                // This will push the assets image to registry
-                                pushToNexus(
-                                        "nexus-docker-registry",
-                                        "http://${docker_int_assets}/",
-                                        "${docker_int_assets}/bosa-city-assets:$job_base_name"
-                                )
-                                // This will push the app image to registry
-                                pushToNexus(
-                                        "nexus-docker-registry",
-                                        "http://${docker_int_app}/",
-                                        "${docker_int_app}/bosa-city:$job_base_name"
-                                )
-                                break
-                            default:
-                                    sh "TAG=$job_base_name-$build_number ${codePath}/ops/release/app/build"
-                                    sh "TAG=$job_base_name-$build_number ${codePath}/ops/release/assets/build"
-                                // This will push the assets image to registry
-                                pushToNexus(
-                                            "nexus-docker-registry",
-                                            "http://${docker_int_assets}/",
-                                            "${docker_int_assets}/bosa-city-assets:${job_base_name}-${build_number}"
-                                    )
-                                // This will push the app image to registry
-                                pushToNexus(
-                                            "nexus-docker-registry",
-                                            "http://${docker_int_app}/",
-                                            "${docker_int_app}/bosa-city:${job_base_name}-${build_number}"
-                                    )
-                                break
-                        }
-                    }
-                }
                 switch (job_base_name){
                     case ~/^\d+\.\d+\.\d+$/:
+                        stage('Promote image to prod'){
+                            withDockerRegistry([credentialsId: 'nexus-docker-registry', url: "http://${docker_int_group}/"]) {
+                                sh "docker pull ${docker_img_group}/bosa-city-assets:rc-${job_base_name}"
+                                sh "docker pull ${docker_img_group}/bosa-city:rc-${job_base_name}"
+                                sh "docker tag ${docker_img_group}/bosa-city-assets:rc-${job_base_name} ${docker_img_prod}/bosa-cities-assets:${job_base_name}"
+                                sh "docker tag ${docker_img_group}/bosa-city:rc-${job_base_name} ${docker_img_prod}/bosa-cities:${job_base_name}"
+                            }
+                            withDockerRegistry([credentialsId: 'asergo-docker-registry', url: "https://${docker_img_prod}/"]){
+                                sh "docker push ${docker_img_prod}/bosa-cities-assets:${job_base_name}"
+                                sh "docker push ${docker_img_prod}/bosa-cities:${job_base_name}"
+                            }
+                        }
                         stage('Deploy app to prod'){
                             kubeDeploy(
                                     "v1.20.0",
@@ -128,7 +73,7 @@ podTemplate(
                                     "bosa-cities",
                                     "bosa-prod",
                                     ["bosa-cities", "bosa-cities-assets" ],
-                                    ["${docker_img_group}/bosa:$job_base_name", "${docker_img_group}/bosa-assets:$job_base_name"]
+                                    ["${docker_img_prod}/bosa-cities:${job_base_name}", "${docker_img_prod}/bosa-cities-assets:${job_base_name}"]
                             )
                         }
                         stage('Deploy sidekiq to prod'){
@@ -139,11 +84,79 @@ podTemplate(
                                     "bosa-cities-sidekiq",
                                     "bosa-prod",
                                     ["bosa-sidekiq" ],
-                                    ["${docker_img_group}/bosa-city:$job_base_name"]
+                                    ["${docker_img_prod}/bosa-cities:${job_base_name}"]
                             )
                         }
                         break
                     case ~/^rc-\d+\.\d+\.\d+$/:
+                        withDockerRegistry([credentialsId: 'nexus-docker-registry', url: "http://${docker_int_group}/"]) {
+                            stage("Build test_runner") {
+                                dir("ops/release/test_runner") {
+                                    sh "./build"
+                                    echo "Done!"
+                                }
+
+                            }
+                            stage("Compile Assets") {
+                                sh """
+                            docker run -e RAILS_ENV=production --env-file ${codePath}/ops/release/test_runner/app_env -v ${codePath}/public:/app/public bosa-cities-testrunner:latest bundle exec rake assets:clean
+                            docker run -e RAILS_ENV=production --env-file ${codePath}/ops/release/test_runner/app_env -v ${codePath}/public:/app/public bosa-cities-testrunner:latest bundle exec rake assets:precompile
+                        """
+
+                            }
+                            stage("Build app image"){
+                                switch (job_base_name){
+                                    case ~/^\d+\.\d+\.\d+$/:
+                                        sh "TAG=$job_base_name ${codePath}/ops/release/app/build"
+                                        sh "TAG=$job_base_name ${codePath}/ops/release/assets/build"
+                                        // This will push the assets image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_assets}/",
+                                                "${docker_int_assets}/bosa-city-assets:$job_base_name"
+                                        )
+                                        // This will push the app image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_app}/",
+                                                "${docker_int_app}/bosa-city:$job_base_name"
+                                        )
+                                        break
+                                    case ~/^rc-\d+\.\d+\.\d+$/:
+                                        sh "TAG=$job_base_name ${codePath}/ops/release/app/build"
+                                        sh "TAG=$job_base_name ${codePath}/ops/release/assets/build"
+                                        // This will push the assets image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_assets}/",
+                                                "${docker_int_assets}/bosa-city-assets:$job_base_name"
+                                        )
+                                        // This will push the app image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_app}/",
+                                                "${docker_int_app}/bosa-city:$job_base_name"
+                                        )
+                                        break
+                                    default:
+                                        sh "TAG=$job_base_name-$build_number ${codePath}/ops/release/app/build"
+                                        sh "TAG=$job_base_name-$build_number ${codePath}/ops/release/assets/build"
+                                        // This will push the assets image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_assets}/",
+                                                "${docker_int_assets}/bosa-city-assets:${job_base_name}-${build_number}"
+                                        )
+                                        // This will push the app image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_app}/",
+                                                "${docker_int_app}/bosa-city:${job_base_name}-${build_number}"
+                                        )
+                                        break
+                                }
+                            }
+                        }
                         stage('Deploy app to uat'){
                             kubeDeploy(
                                     "v1.20.0",
@@ -168,6 +181,74 @@ podTemplate(
                         }
                         break
                     default:
+                        withDockerRegistry([credentialsId: 'nexus-docker-registry', url: "http://${docker_int_group}/"]) {
+                            stage("Build test_runner") {
+                                dir("ops/release/test_runner") {
+                                    sh "./build"
+                                    echo "Done!"
+                                }
+
+                            }
+                            stage("Compile Assets") {
+                                sh """
+                            docker run -e RAILS_ENV=production --env-file ${codePath}/ops/release/test_runner/app_env -v ${codePath}/public:/app/public bosa-cities-testrunner:latest bundle exec rake assets:clean
+                            docker run -e RAILS_ENV=production --env-file ${codePath}/ops/release/test_runner/app_env -v ${codePath}/public:/app/public bosa-cities-testrunner:latest bundle exec rake assets:precompile
+                        """
+
+                            }
+                            stage("Build app image"){
+                                switch (job_base_name){
+                                    case ~/^\d+\.\d+\.\d+$/:
+                                        sh "TAG=$job_base_name ${codePath}/ops/release/app/build"
+                                        sh "TAG=$job_base_name ${codePath}/ops/release/assets/build"
+                                        // This will push the assets image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_assets}/",
+                                                "${docker_int_assets}/bosa-city-assets:$job_base_name"
+                                        )
+                                        // This will push the app image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_app}/",
+                                                "${docker_int_app}/bosa-city:$job_base_name"
+                                        )
+                                        break
+                                    case ~/^rc-\d+\.\d+\.\d+$/:
+                                        sh "TAG=$job_base_name ${codePath}/ops/release/app/build"
+                                        sh "TAG=$job_base_name ${codePath}/ops/release/assets/build"
+                                        // This will push the assets image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_assets}/",
+                                                "${docker_int_assets}/bosa-city-assets:$job_base_name"
+                                        )
+                                        // This will push the app image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_app}/",
+                                                "${docker_int_app}/bosa-city:$job_base_name"
+                                        )
+                                        break
+                                    default:
+                                        sh "TAG=$job_base_name-$build_number ${codePath}/ops/release/app/build"
+                                        sh "TAG=$job_base_name-$build_number ${codePath}/ops/release/assets/build"
+                                        // This will push the assets image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_assets}/",
+                                                "${docker_int_assets}/bosa-city-assets:${job_base_name}-${build_number}"
+                                        )
+                                        // This will push the app image to registry
+                                        pushToNexus(
+                                                "nexus-docker-registry",
+                                                "http://${docker_int_app}/",
+                                                "${docker_int_app}/bosa-city:${job_base_name}-${build_number}"
+                                        )
+                                        break
+                                }
+                            }
+                        }
                         stage('Deploy app to dev'){
                             kubeDeploy(
                                     "v1.20.0",
