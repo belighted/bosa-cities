@@ -54,7 +54,7 @@ podTemplate(
                 switch (job_base_name){
                     case ~/^\d+\.\d+\.\d+$/:
                         stage('Promote image to prod'){
-                            withDockerRegistry([credentialsId: 'nexus-docker-registry', url: "http://${docker_int_group}/"]) {
+                            withDockerRegistry([credentialsId: 'nexus-docker-registry', url: "http://${docker_img_group}/"]) {
                                 sh "docker pull ${docker_img_group}/bosa-city-assets:rc-${job_base_name}"
                                 sh "docker pull ${docker_img_group}/bosa-city:rc-${job_base_name}"
                                 sh "docker tag ${docker_img_group}/bosa-city-assets:rc-${job_base_name} ${docker_img_prod}/bosa-cities-assets:${job_base_name}"
