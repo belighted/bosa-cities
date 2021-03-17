@@ -68,7 +68,7 @@ podTemplate(
                         stage('Deploy app to prod'){
                             kubeDeploy(
                                     "v1.20.0",
-                                    "kube-jenkins-robot",
+                                    "kube-jenkins-robot-prod",
                                     "${kube_conf_url}",
                                     "bosa-cities",
                                     "bosa-prod",
@@ -79,7 +79,7 @@ podTemplate(
                         stage('Deploy sidekiq to prod'){
                             kubeDeploy(
                                     "v1.20.0",
-                                    "kube-jenkins-robot",
+                                    "kube-jenkins-robot-prod",
                                     "${kube_conf_url}",
                                     "bosa-cities-sidekiq",
                                     "bosa-prod",
