@@ -3,7 +3,7 @@
 # Default CarrierWave setup.
 
 cw_creds = Rails.application.secrets.dig(:carrierwave)
-if cw_creds.dig(:enabled).try(:upcase) == "TRUE" && (Rails.env.production? || Rails.env.staging?)
+if cw_creds.dig(:enabled) && (Rails.env.production? || Rails.env.staging?)
   CarrierWave.configure do |config|
     config.fog_provider = 'fog/aws'
     config.fog_credentials = {
