@@ -13,6 +13,7 @@ import groovy.transform.Field
 @Field def docker_int_app       = "registry-bosa-city.bosa.belighted.com"
 @Field def docker_int_group     = "registry-bosa-docker.bosa.belighted.com"
 @Field def kube_conf_url        = "https://2483-jier9.k8s.asergo.com:6443/"
+@Field def kube_conf_url_prod   = "https://2483-im9eu.k8s.asergo.com:6443/"
 
 podTemplate(
         label: 'docker-slave',
@@ -69,7 +70,7 @@ podTemplate(
                             kubeDeploy(
                                     "v1.20.0",
                                     "kube-jenkins-robot-prod",
-                                    "${kube_conf_url}",
+                                    "${kube_conf_url_prod}",
                                     "bosa-cities",
                                     "bosa-prod",
                                     ["bosa-cities", "bosa-cities-assets" ],
@@ -80,7 +81,7 @@ podTemplate(
                             kubeDeploy(
                                     "v1.20.0",
                                     "kube-jenkins-robot-prod",
-                                    "${kube_conf_url}",
+                                    "${kube_conf_url_prod}",
                                     "bosa-cities-sidekiq",
                                     "bosa-prod",
                                     ["bosa-sidekiq" ],
