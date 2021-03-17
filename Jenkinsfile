@@ -84,7 +84,7 @@ podTemplate(
                                     "${kube_conf_url_prod}",
                                     "bosa-cities-sidekiq",
                                     "bosa-prod",
-                                    ["bosa-sidekiq" ],
+                                    ["bosa-cities-sidekiq" ],
                                     ["${docker_img_prod}/bosa-cities:${job_base_name}"]
                             )
                         }
