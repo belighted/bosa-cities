@@ -13,6 +13,7 @@ import groovy.transform.Field
 @Field def docker_int_app       = "registry-bosa-city.bosa.belighted.com"
 @Field def docker_int_group     = "registry-bosa-docker.bosa.belighted.com"
 @Field def kube_conf_url        = "https://2483-jier9.k8s.asergo.com:6443/"
+@Field def kube_conf_url_prod   = "https://2483-im9eu.k8s.asergo.com:6443/"
 
 podTemplate(
         label: 'docker-slave',
@@ -54,7 +55,7 @@ podTemplate(
                 switch (job_base_name){
                     case ~/^\d+\.\d+\.\d+$/:
                         stage('Promote image to prod'){
-                            withDockerRegistry([credentialsId: 'nexus-docker-registry', url: "http://${docker_int_group}/"]) {
+                            withDockerRegistry([credentialsId: 'nexus-docker-registry', url: "http://${docker_img_group}/"]) {
                                 sh "docker pull ${docker_img_group}/bosa-city-assets:rc-${job_base_name}"
                                 sh "docker pull ${docker_img_group}/bosa-city:rc-${job_base_name}"
                                 sh "docker tag ${docker_img_group}/bosa-city-assets:rc-${job_base_name} ${docker_img_prod}/bosa-cities-assets:${job_base_name}"
@@ -68,8 +69,8 @@ podTemplate(
                         stage('Deploy app to prod'){
                             kubeDeploy(
                                     "v1.20.0",
-                                    "kube-jenkins-robot",
-                                    "${kube_conf_url}",
+                                    "kube-jenkins-robot-prod",
+                                    "${kube_conf_url_prod}",
                                     "bosa-cities",
                                     "bosa-prod",
                                     ["bosa-cities", "bosa-cities-assets" ],
@@ -79,11 +80,11 @@ podTemplate(
                         stage('Deploy sidekiq to prod'){
                             kubeDeploy(
                                     "v1.20.0",
-                                    "kube-jenkins-robot",
-                                    "${kube_conf_url}",
+                                    "kube-jenkins-robot-prod",
+                                    "${kube_conf_url_prod}",
                                     "bosa-cities-sidekiq",
                                     "bosa-prod",
-                                    ["bosa-sidekiq" ],
+                                    ["bosa-cities-sidekiq" ],
                                     ["${docker_img_prod}/bosa-cities:${job_base_name}"]
                             )
                         }
