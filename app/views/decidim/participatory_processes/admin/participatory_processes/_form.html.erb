@@ -134,7 +134,7 @@
       <%= form.areas_select :area_ids,
                             areas_for_select(current_organization),
                             {
-                                selected: current_participatory_process.area_ids,
+                                selected: current_participatory_process&.area_ids,
                                 include_blank: true
                             },
                             multiple: true %>
