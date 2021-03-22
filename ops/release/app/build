@@ -2,7 +2,7 @@
 
 set -e
 
-IMAGE_NAME="registry-bosa-city.bosa.belighted.com/bosa-city"
+IMAGE_NAME="nexus.asergo.com/2483/apps/bosa-cities"
 TAG=${TAG:-"latest"}
 
 runpath="$( cd "$(dirname "$0")" ; pwd -P )"
