@@ -1,0 +1,6 @@
+.topbar__user__logged{
+  // hide caret down
+  .dropdown.menu > li.is-dropdown-submenu-parent > a::after{
+    display: none;
+  }
+}
