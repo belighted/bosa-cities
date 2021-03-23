@@ -215,7 +215,7 @@ def pushToNexus(String registryCredId, String registryUrl, String image){
 
 // This method will allow us to promot images from UAT to PROD
 def promoteImages(String registryCredId, String srcUrl, String dstUrl, List srcImages, List dstImages ){
-    withDockerRegistry([credentialsId: "${registryCredId}", url: "${registryUrl}"]) {
+    withDockerRegistry([credentialsId: "${registryCredId}", url: "https://${srcUrl}/"]) {
         for (int i = 0; i < srcImages.size() ; i++) {
             sh "docker pull ${srcUrl}/${srcImages[i]}:rc-${job_base_name}"
             sh "docker tag ${srcUrl}/${srcImages[i]}:rc-${job_base_name} ${dstUrl}/${dstImages[i]}:${job_base_name}"
