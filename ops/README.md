@@ -33,6 +33,27 @@ and Sidekick workers. Note that the very first time, an empty file named `app_en
 the `ops/dev` directory. This files is ignored by Git and will allow the developer to override the environment
 variables defined by default in `app_env`.
 
+### Override configuration
+
+If for some reason you want to tweak the provided docker-compose configuration in order to better suit your local setup,
+the recommended way is to create in the same directory a `docker-compose.override.yml` file in which you can specify your
+own configuration. This file is ignored by Git and is automatically taken into account by docker-compose. You do not
+need to rewrite everything, only the things that change (see https://docs.docker.com/compose/extends/#understanding-multiple-compose-files).
+
+For example, if you want to map the ports used by Postgres and Redis to the same ports on the host, create a
+`docker-compose.override.yml` file with the following content:
+
+```yaml
+version: '3.8'
+services:
+  postgres:
+    ports:
+      - 5432:5432
+  redis:
+    ports:
+      - 6379:6379
+```
+
 ## Release ([ops/release](./release))
 
 This directory contains the Docker configuration files that are needed to build the images that
