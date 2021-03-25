@@ -105,6 +105,7 @@ $navbar-background: darken( $title-bar-background, 10%);
     display: block;
     float: left;
     padding: .35em .5em;
+    position: relative;
 
     .icon {
       width: 2em;
