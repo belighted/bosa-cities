@@ -1,9 +1,10 @@
 // = require quill.min
 // = require decidim/admin/quill_iframe_plugin
+// = require decidim/admin/quill-image-drop-plugin.min
 // = require_self
 
 ((exports) => {
-  const quillFormats = ["bold", "italic", "link", "underline", "header", "list", "video", "iframe"];
+  const quillFormats = ["bold", "italic", "link", "underline", "header", "list", "image", "video", "iframe"];
 
   const createQuillEditor = (container) => {
     const toolbar = $(container).data("toolbar");
@@ -19,19 +20,20 @@
       quillToolbar = [
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
         ...quillToolbar,
-        ["video", "iframe"]
+        ["image", "video", "iframe"]
       ];
     } else if (toolbar === "basic") {
       quillToolbar = [
         ...quillToolbar,
-        ["video", "iframe"]
+        ["image", "video", "iframe"]
       ];
     }
 
     const $input = $(container).siblings('input[type="hidden"]');
     const quill = new Quill(container, {
       modules: {
-        toolbar: quillToolbar
+        toolbar: quillToolbar,
+        imageDrop: true
       },
       formats: quillFormats,
       theme: "snow"
