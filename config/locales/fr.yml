@@ -118,3 +118,5 @@ fr:
         back_to_account: Retour à votre compte
       user_menu:
         admin_dashboard: Administration
+      profiles:
+        title: Mon profil public

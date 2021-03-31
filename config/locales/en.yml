@@ -79,3 +79,5 @@ en:
         footer: <a href="%{organization_url}">%{organization_name}</a>
       user_profile:
         back_to_account: Back to account
+      profiles:
+        title: My public profile

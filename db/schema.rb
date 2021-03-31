@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_08_084818) do
+ActiveRecord::Schema.define(version: 2021_03_26_060819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
@@ -719,6 +719,7 @@ ActiveRecord::Schema.define(version: 2021_03_08_084818) do
     t.boolean "custom_signature_end_date_enabled", default: false, null: false
     t.boolean "area_enabled", default: false, null: false
     t.boolean "attachments_enabled", default: false, null: false
+    t.boolean "cannot_accumulate_supports_beyond_threshold", default: false, null: false
     t.index ["decidim_organization_id"], name: "index_decidim_initiative_types_on_decidim_organization_id"
   end
 
@@ -1469,6 +1470,7 @@ ActiveRecord::Schema.define(version: 2021_03_08_084818) do
     t.boolean "custom_signature_end_date_enabled", default: false, null: false
     t.boolean "area_enabled", default: false, null: false
     t.boolean "attachments_enabled", default: false, null: false
+    t.boolean "cannot_accumulate_supports_beyond_threshold", default: false, null: false
     t.index ["decidim_organization_id"], name: "index_decidim_suggestions_types_on_decidim_organization_id"
   end
 

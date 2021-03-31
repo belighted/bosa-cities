@@ -1,3 +1,8 @@
+# frozen_string_literal: true
+
+# load env vars from .env
+require "dotenv/load"
+
 # Load DSL and set up stages
 require "capistrano/setup"
 
@@ -29,11 +34,11 @@ require "capistrano/rails"
 require "capistrano/puma"
 require 'capistrano/sidekiq'
 
-require 'capistrano/bundler'
-require 'capistrano/rails/assets'
-require 'capistrano/rails/migrations'
+require "capistrano/bundler"
+require "capistrano/rails/assets"
+require "capistrano/rails/migrations"
 
-require 'appsignal/capistrano'
+require "appsignal/capistrano"
 
 install_plugin Capistrano::Puma
 install_plugin Capistrano::Puma::Workers

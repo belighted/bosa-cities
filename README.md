@@ -74,23 +74,25 @@ It is already done by decidim seeds for default organization,
 but when you create a new organization there would be no admin users in it.
 
 ```
-organization = Decidim::Organization.find(_YOUR_ORG_ID_)
-user = Decidim::User.initialize_by(email: "admin@example.org")
+o = Decidim::Organization.find(_YOUR_ORG_ID_)
+user = Decidim::User.new(email: "admin@belighted.com")
+password = "decidim123456"
 user.update!(
-    name: Faker::Name.name,
-    nickname: Faker::Twitter.unique.screen_name,
-    password: "decidim123456",
-    password_confirmation: "decidim123456",
-    organization: organization,
+    name: "Admin",
+    nickname: 'admin',
+    password: password,
+    password_confirmation: password,
+    organization: o,
     confirmed_at: Time.current,
     locale: I18n.default_locale,
     admin: true,
     tos_agreement: true,
-    personal_url: Faker::Internet.url,
-    about: Faker::Lorem.paragraph(2),
-    accepted_tos_version: organization.tos_version,
+    personal_url: '',
+    about: '',
+    accepted_tos_version: o.tos_version,
     admin_terms_accepted_at: Time.current
 )
+user.confirm
 ```
 
 You're good to go!

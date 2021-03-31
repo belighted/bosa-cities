@@ -198,3 +198,5 @@ nl:
         sign_out: Sign out
       user_profile:
         back_to_account: Back to account
+      profiles:
+        title: Mijn openbaar profiel

@@ -3,10 +3,10 @@
 ## Base image ([ops/base](./base))
 
 The purpose of the base image is mostly to speed up the building of the working images.
-It contains dependencies (binaries, gems,...) common to the various environments 
+It contains dependencies (binaries, gems,...) common to the various environments
 (local development/test, feature, staging, production).
 
-It must be rebuilt and pushed to the Docker registry when the base Dockerfile is modified (e.g. when Ruby version is 
+It must be rebuilt and pushed to the Docker registry when the base Dockerfile is modified (e.g. when Ruby version is
 updated, or when binaries are added). It is also a good idea to rebuilt and push a new version from time to time in
 order to install new or updated gems in the base image (this is not mandatory, but as explained above it will speed up
 the building of the working images).
@@ -32,6 +32,27 @@ should start all the needed services: MongoDB, Redis, Nginx reverse proxy, Rails
 and Sidekick workers. Note that the very first time, an empty file named `app_env.secrets` should be created in
 the `ops/dev` directory. This files is ignored by Git and will allow the developer to override the environment
 variables defined by default in `app_env`.
+
+### Override configuration
+
+If for some reason you want to tweak the provided docker-compose configuration in order to better suit your local setup,
+the recommended way is to create in the same directory a `docker-compose.override.yml` file in which you can specify your
+own configuration. This file is ignored by Git and is automatically taken into account by docker-compose. You do not
+need to rewrite everything, only the things that change (see https://docs.docker.com/compose/extends/#understanding-multiple-compose-files).
+
+For example, if you want to map the ports used by Postgres and Redis to the same ports on the host, create a
+`docker-compose.override.yml` file with the following content:
+
+```yaml
+version: '3.8'
+services:
+  postgres:
+    ports:
+      - 5432:5432
+  redis:
+    ports:
+      - 6379:6379
+```
 
 ## Release ([ops/release](./release))
 
