@@ -9,6 +9,11 @@ module OrganizationExtend
     def translatable_locales
       available_locales & Decidim.config.translatable_locales
     end
+
+    def basic_auth_enabled?
+      self.basic_auth_username.present? || self.basic_auth_password.present?
+    end
+
   end
 end
 

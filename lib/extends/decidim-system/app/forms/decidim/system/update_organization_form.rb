@@ -6,6 +6,8 @@ module UpdateOrganizationFormExtend
   extend ActiveSupport::Concern
 
   included do
+    attribute :basic_auth_username, String
+    attribute :basic_auth_password, String
 
     def set_from
       return from_email if from_label.blank?

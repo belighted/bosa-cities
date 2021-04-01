@@ -6,11 +6,16 @@ module BasicAuthConcern
   end
 
   def check_basic_auth
-    return true unless Rails.application.config.basic_auth_required
+    return true if !Rails.application.config.basic_auth_required && !current_organization.basic_auth_enabled?
 
     authenticate_or_request_with_http_basic do |username, password|
-      username == Rails.application.config.basic_auth_username &&
-        password == Rails.application.config.basic_auth_password
+      if current_organization.basic_auth_enabled?
+        username == current_organization.basic_auth_username &&
+          password == current_organization.basic_auth_password
+      else
+        username == Rails.application.config.basic_auth_username &&
+          password == Rails.application.config.basic_auth_password
+      end
     end
 
   end
