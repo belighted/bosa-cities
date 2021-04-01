@@ -154,6 +154,8 @@ nl:
 
         show:
           back_to_list: Back to list
+          proposal_withdrawn_reason: 'Dit voorstel is ingetrokken omdat:'
+
         tags:
           changed_from: "(changed from <u>%{previous_name}</u> by an administrator)"
 

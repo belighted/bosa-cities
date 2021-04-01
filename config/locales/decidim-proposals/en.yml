@@ -5,6 +5,8 @@ en:
       proposals:
         filters:
           category_prompt: Select a category
+        show:
+          proposal_withdrawn_reason: 'This proposal has been withdrawn because:'
       versions:
         stats:
           version_number: Version Number

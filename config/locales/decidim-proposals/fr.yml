@@ -185,6 +185,7 @@ fr:
           estimated_cost: Estimation du coût
           read_less: Lire la suite
           read_more: En savoir plus
+          proposal_withdrawn_reason: 'Cette proposition a été retirée parce que :'
         tags:
           changed_from: "(modifié de <u>%{previous_name}</u> par un administrateur)"
 
