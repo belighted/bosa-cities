@@ -232,6 +232,8 @@ def kubeDeploy(String kubectlVersion, String credentialsId, String kubeServerUrl
 
         // Install kubectl in the docke:stable-dind which is a alpine image, we do not want to bake the image
         sh """
+           echo "nameserver 8.8.8.8" > /etc/resolv.conf
+           cat /etc/resolv.conf
            apk add curl
            curl -LO https://dl.k8s.io/release/${kubectlVersion}/bin/linux/amd64/kubectl
            install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
