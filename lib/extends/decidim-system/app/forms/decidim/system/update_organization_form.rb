@@ -6,6 +6,7 @@ module UpdateOrganizationFormExtend
   extend ActiveSupport::Concern
 
   included do
+    attribute :castings_enabled, Virtus::Attribute::Boolean
     attribute :basic_auth_username, String
     attribute :basic_auth_password, String
 

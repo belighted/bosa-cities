@@ -30,6 +30,11 @@
     <%= f.collection_check_boxes :available_authorizations, Decidim.authorization_workflows, :name, :description %>
   </div>
 
+  <div class="field">
+    <%= f.label :castings_module %>
+    <%= f.check_box :castings_enabled %>
+  </div>
+
   <fieldset class="fieldset">
     <legend>Basic Auth</legend>
     <div class="field">

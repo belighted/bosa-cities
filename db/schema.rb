@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_01_123232) do
+ActiveRecord::Schema.define(version: 2021_04_05_063027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "btree_gin"
@@ -1007,6 +1007,7 @@ ActiveRecord::Schema.define(version: 2021_04_01_123232) do
     t.jsonb "suggestions_settings"
     t.string "basic_auth_username"
     t.string "basic_auth_password"
+    t.boolean "castings_enabled"
     t.index ["host"], name: "index_decidim_organizations_on_host", unique: true
     t.index ["name"], name: "index_decidim_organizations_on_name", unique: true
   end

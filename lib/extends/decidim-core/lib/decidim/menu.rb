@@ -11,6 +11,7 @@
 #   menu.item I18n.t("menu.suggestions", scope: "decidim"),
 #             decidim_suggestions.suggestions_path,
 #             position: 2,
+#             if: Decidim::Suggestion.where(organization: current_organization).published.any?,
 #             active: :inclusive
 #
 #   menu.item I18n.t("menu.assemblies", scope: "decidim"),
@@ -22,6 +23,7 @@
 #   menu.item I18n.t("menu.initiatives", scope: "decidim"),
 #             decidim_initiatives.initiatives_path,
 #             position: 4,
+#             if: Decidim::Initiative.where(organization: current_organization).published.any?,
 #             active: :inclusive
 #
 #   menu.item I18n.t("menu.help", scope: "decidim"),

@@ -54,6 +54,15 @@
 #             active: [%w(user_groups users managed_users impersonatable_users authorization_workflows).map {|segment| "/decidim/admin/#{segment}"}, []],
 #             if: allowed_to?(:read, :admin_user) || allowed_to?(:read, :managed_user)
 #
+#  if current_organization.castings_enabled?
+#    menu.item I18n.t("menu.castings", scope: "decidim.castings"),
+#              decidim_admin_castings.castings_path,
+#              icon_name: "people",
+#              position: 7.1,
+#              active: :inclusive,
+#              if: allowed_to?(:update, :organization, organization: current_organization)
+#  end
+#
 #   menu.item I18n.t("menu.newsletters", scope: "decidim.admin"),
 #             decidim_admin.newsletters_path,
 #             icon_name: "envelope-closed",
