@@ -38,6 +38,9 @@ group :development, :test do
   gem 'decidim-dev', DECIDIM_VERSION
   gem 'pry-rails'
   gem 'webdrivers'
+  gem 'rack-mini-profiler'
+  gem 'memory_profiler'
+  gem 'stackprof'
 end
 
 group :development do

@@ -132,10 +132,10 @@ end
           <%= yield %>
         </main>
       </div><!-- /.footer-separator -->
-      <%# cache current_organization do %>
+      <% cache [current_organization, I18n.locale] do %>
         <%= render partial: "layouts/decidim/main_footer" %>
         <%= render partial: "layouts/decidim/mini_footer" %>
-      <%# end %>
+      <% end %>
     </div><!--/.off-canvas-content-->
   </div><!--/.off-canvas-wrapper-inner-->
 </div><!--/.off-canvas-wrapper-->
