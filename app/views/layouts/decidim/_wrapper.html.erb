@@ -104,13 +104,15 @@ end
                   <% if current_organization.sign_up_enabled? %>
                     <%= link_to t("layouts.decidim.header.sign_up"), decidim.new_user_registration_path, class: "sign-up-link" %>
                   <% end %>
-                  <% if current_organization.enabled_omniauth_providers.keys.size === 1 && current_organization.enabled_omniauth_providers[:csam] %>
-                    <%= link_to t("layouts.decidim.header.sign_in"),
-                      decidim.send('user_csam_omniauth_authorize_path'),
-                      method: :post,
-                      class: "sign-in-link" %>
-                  <% else %>
-                    <%= link_to t("layouts.decidim.header.sign_in"), decidim.new_user_session_path, class: "sign-in-link" %>
+                  <% cache [current_organization, I18n.locale] do %>
+                    <% if current_organization.enabled_omniauth_providers.keys.size === 1 && current_organization.enabled_omniauth_providers[:csam] %>
+                      <%= link_to t("layouts.decidim.header.sign_in"),
+                        decidim.send('user_csam_omniauth_authorize_path'),
+                        method: :post,
+                        class: "sign-in-link" %>
+                    <% else %>
+                      <%= link_to t("layouts.decidim.header.sign_in"), decidim.new_user_session_path, class: "sign-in-link" %>
+                    <% end %>
                   <% end %>
                 </div>
               </div>

@@ -14,7 +14,9 @@
 <html lang="<%= I18n.locale %>" class="no-js">
   <head>
     <title><%= decidim_page_title %></title>
-    <%= render partial: "layouts/decidim/head" %>
+    <% cache [current_organization, I18n.locale] do %>
+      <%= render partial: "layouts/decidim/head" %>
+    <% end %>
   </head>
 
   <body>
