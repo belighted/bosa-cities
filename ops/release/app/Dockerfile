@@ -1,4 +1,4 @@
-FROM nexus.asergo.com/2483/base/bosa-cities-base:latest
+FROM nexus.asergo.com/2483/base/bosa-cities-base:jemalloc
 LABEL maintainer="Dominique Lebrun <dominique.lebrun@belighted.com>"
 ENV BUNDLE_WITHOUT=test:development
 ENV BUNDLE_WITH=production
