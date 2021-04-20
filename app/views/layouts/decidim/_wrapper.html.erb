@@ -104,7 +104,7 @@ end
                   <% if current_organization.sign_up_enabled? %>
                     <%= link_to t("layouts.decidim.header.sign_up"), decidim.new_user_registration_path, class: "sign-up-link" %>
                   <% end %>
-                  <% cache [current_organization, I18n.locale] do %>
+                  <% cache [current_organization, I18n.locale, 'wrapper', 'topbar__user__login'] do %>
                     <% if current_organization.enabled_omniauth_providers.keys.size === 1 && current_organization.enabled_omniauth_providers[:csam] %>
                       <%= link_to t("layouts.decidim.header.sign_in"),
                         decidim.send('user_csam_omniauth_authorize_path'),
@@ -134,7 +134,7 @@ end
           <%= yield %>
         </main>
       </div><!-- /.footer-separator -->
-      <% cache [current_organization, I18n.locale] do %>
+      <% cache [current_organization, I18n.locale, 'wrapper', 'footer'] do %>
         <%= render partial: "layouts/decidim/main_footer" %>
         <%= render partial: "layouts/decidim/mini_footer" %>
       <% end %>
