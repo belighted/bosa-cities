@@ -105,7 +105,8 @@ end
                     <%= link_to t("layouts.decidim.header.sign_up"), decidim.new_user_registration_path, class: "sign-up-link" %>
                   <% end %>
                   <% cache [current_organization, I18n.locale, 'wrapper', 'topbar__user__login'] do %>
-                    <% if current_organization.enabled_omniauth_providers.keys.size === 1 && current_organization.enabled_omniauth_providers[:csam] %>
+                    <% providers = current_organization.enabled_omniauth_providers %>
+                    <% if providers.keys.size === 1 && providers[:csam].present? && !current_organization.sign_in_enabled? %>
                       <%= link_to t("layouts.decidim.header.sign_in"),
                         decidim.send('user_csam_omniauth_authorize_path'),
                         method: :post,
