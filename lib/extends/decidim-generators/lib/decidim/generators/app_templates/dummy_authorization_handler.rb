@@ -77,7 +77,7 @@ class DummyAuthorizationHandler < ::Decidim::AuthorizationHandler
   private
 
   def valid_document_number
-    errors.add(:document_number, :invalid) unless document_number.to_s.end_with?("X")
+    errors.add(:document_number, :invalid) unless document_number =~ /\A[a-zA-Z0-9]+\z/
   end
 
   # If you need custom authorization logic, you can implement your own action

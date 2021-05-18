@@ -5,6 +5,8 @@ en:
     translated: Translated
 
   decidim:
+    authorization_form:
+      document_number_help_text: Only letters and numbers are authorized. Avoid special characters and spaces. E.g. petition20210605
     authorization_modals:
       content:
         ok:
