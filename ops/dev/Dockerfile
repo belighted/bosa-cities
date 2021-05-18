@@ -1,4 +1,4 @@
-FROM nexus.asergo.com/2483/base/bosa-cities-base:latest
+FROM nexus.asergo.com/2483/base/bosa-cities-base:jemalloc
 
 # Configure locale, bundler, define app dir
 ENV BUNDLE_WITHOUT=production:test

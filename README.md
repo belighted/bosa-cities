@@ -37,7 +37,7 @@ DATABASE_USERNAME=postgres
 DATABASE_PASSWORD=postgres
 DATABASE_HOST=postgres
 DATABASE_PORT=5432
-RUBY_VERSION=2.6.3
+RUBY_VERSION=2.6.6
 REDIS_URL=redis://redis:6379/1
 ```
 *  Make local copy for `.ops/.gitconfig` based on the `.ops/gitconfig.example`
