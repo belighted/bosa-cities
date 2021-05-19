@@ -4,3 +4,5 @@ User-agent: *
 Disallow: /*/*/*/*/proposals/
 Disallow: /*.png$
 Disallow: /*/*/*/*/*/*/versions/
+Disallow: /users/auth/csam
+Disallow: /users/auth/saml
