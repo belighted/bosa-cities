@@ -194,6 +194,28 @@ podTemplate(
                                     ["${docker_img_prod}/bosa-cities:${job_base_name}"]
                             )
                         }
+                        stage('Deploy bosa-national-survey'){
+                            kubeDeploy(
+                                    "v1.20.0",
+                                    "kube-jenkins-robot-prod",
+                                    "${kube_conf_url_prod}",
+                                    "bosa-national-survey",
+                                    "bosa-prod",
+                                    ["bosa-national-survey", "bosa-national-survey-assets" ],
+                                    ["${docker_img_prod}/bosa-cities:${job_base_name}", "${docker_img_prod}/bosa-cities-assets:${job_base_name}"]
+                            )
+                        }
+                        stage('Deploy bosa-national-survey-sidekiq'){
+                            kubeDeploy(
+                                    "v1.20.0",
+                                    "kube-jenkins-robot-prod",
+                                    "${kube_conf_url_prod}",
+                                    "bosa-national-survey-sidekiq",
+                                    "bosa-prod",
+                                    ["bosabosa-national-survey-sidekiq" ],
+                                    ["${docker_img_prod}/bosa-cities:${job_base_name}"]
+                            )
+                        }
                         break
                 }
             }
