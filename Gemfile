@@ -36,9 +36,6 @@ gem "sentry-ruby"
 # and the integrations you need
 gem "sentry-rails"
 gem "sentry-sidekiq"
-gem "sentry-delayed_job"
-
-gem 'delayed_job', '~> 4.1', '>= 4.1.9'
 
 group :development, :test do
   gem 'faker', '~> 1.9'
