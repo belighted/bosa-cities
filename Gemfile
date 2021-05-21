@@ -23,7 +23,6 @@ gem "puma", "~> 4.3"
 gem 'pry'
 gem 'ruby-progressbar'
 gem 'rubyzip', require: 'zip'
-gem 'sentry-raven'
 gem 'sidekiq'
 gem 'sidekiq-scheduler'
 gem 'uglifier'
@@ -31,6 +30,15 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
 gem 'dotenv-rails'
+
+gem "sentry-ruby"
+
+# and the integrations you need
+gem "sentry-rails"
+gem "sentry-sidekiq"
+gem "sentry-delayed_job"
+
+gem 'delayed_job', '~> 4.1', '>= 4.1.9'
 
 group :development, :test do
   gem 'faker', '~> 1.9'
