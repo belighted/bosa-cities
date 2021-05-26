@@ -17,7 +17,7 @@ nl:
     translated: Translated
   decidim:
     authorization_form:
-      document_number_help_text: Alleen letters en cijfers zijn toegestaan. Vermijd speciale tekens en spaties. Bijv. verzoekschrift20210605
+      document_number_help_text: Alleen letters en cijfers zijn toegestaan. Vermijd speciale tekens en spaties. Bijv. Verzoekschrift20210605
     accessibility:
       logo: "%{organization}'s official logo"
       skip_button: Skip to main content

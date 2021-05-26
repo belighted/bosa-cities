@@ -18,7 +18,7 @@ es:
 
   decidim:
     authorization_form:
-      document_number_help_text: "Sólo están autorizadas las letras y los números. Evite los caracteres especiales y los espacios. Por ejemplo: petition20210605"
+      document_number_help_text: "Sólo están autorizadas las letras y los números. Evite los caracteres especiales y los espacios. Por ejemplo: Petition20210605"
     accessibility:
       logo: "%{organización} logotipo oficial de la organización"
       skip_button: Saltar al contenido principal

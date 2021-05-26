@@ -18,7 +18,7 @@ fr:
     translated: Traduit
   decidim:
     authorization_form:
-      document_number_help_text: "Seuls les lettres et les chiffres sont autorisés. Évitez les caractères spéciaux et les espaces. Par exemple : petition20210605"
+      document_number_help_text: "Seuls les lettres et les chiffres sont autorisés. Évitez les caractères spéciaux et les espaces. Par exemple : Petition20210605"
     accessibility:
       logo: "%{organisation} logo officiel de l'organisation"
       skip_button: Passer au contenu principal
