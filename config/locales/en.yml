@@ -43,7 +43,7 @@ en:
         name: Omniauth Decidim
         explanation: Validate with your external Decidim account
       dummy_authorization_handler:
-        name: BOSA dummy authorization
+        name: Admin can impersonate users
         explanation: Add additional informations to your account
         fields:
           scope_id: Scope
