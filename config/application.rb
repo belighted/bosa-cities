@@ -36,15 +36,16 @@ module DecidimAws
       ActiveRecord::SessionStore::Session.serializer = :json
     end
 
-    Raven.configure do |config|
-      config.logger = Raven::Logger.new(STDOUT)
+    Sentry.init do |config|
+      config.logger = Sentry::Logger.new(STDOUT)
       config.dsn = "https://c3d3d789cfd241db940fcd8c8c2b81eb@o26574.ingest.sentry.io/5471760" # ENV["SENTRY_DSN"]
-      config.environments = %w[staging production bosa-production bosa-cities-production bosa-uat bosa-cities-uat]
-      config.current_environment = ENV.fetch("SENTRY_CURRENT_ENV", "missing-env")
+      config.enabled_environments = %w[staging production bosa-production bosa-cities-production bosa-uat bosa-cities-uat]
+      config.environment = ENV.fetch("SENTRY_CURRENT_ENV", "missing-env")
+      config.send_default_pii = true
 
-      config.async = lambda { |event|
-        SentryJob.perform_later(event)
-      }
+      config.async = lambda do |event, hint|
+        Sentry::SendEventJob.perform_later(event, hint)
+      end
     end
 
     # config.action_mailer.asset_host = "https://broom.osp.cat"
