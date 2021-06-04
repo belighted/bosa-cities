@@ -17,6 +17,7 @@ gem 'appsignal'
 gem 'activerecord-session_store'
 gem 'bootsnap'
 gem 'deepl-rb'
+gem 'goldiloader'
 gem 'http_logger'
 gem 'omniauth-rails_csrf_protection'
 gem "puma", "~> 4.3"

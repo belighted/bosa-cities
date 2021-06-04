@@ -505,6 +505,9 @@ GEM
     geocoder (1.6.6)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
+    goldiloader (4.1.0)
+      activerecord (>= 5.2, < 7.1)
+      activesupport (>= 5.2, < 7.1)
     graphiql-rails (1.4.11)
       railties
       sprockets-rails
@@ -979,6 +982,7 @@ DEPENDENCIES
   dotenv-rails
   faker (~> 1.9)
   fog-aws
+  goldiloader
   http_logger
   letter_opener_web (~> 1.3)
   listen (~> 3.1)
@@ -1005,7 +1009,7 @@ DEPENDENCIES
   wkhtmltopdf-binary
 
 RUBY VERSION
-   ruby 2.6.3p62
+   ruby 2.6.6p146
 
 BUNDLED WITH
    2.1.4
