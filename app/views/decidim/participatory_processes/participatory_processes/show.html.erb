@@ -36,7 +36,6 @@
         <%= decidim_sanitize translated_attribute(current_participatory_space.description) %>
       </div>
       <%= attachments_for current_participatory_space %>
-      <%= render_hook(:participatory_space_highlighted_elements) %>
 
       <% if related_processes.any? %>
         <div class="section row collapse related_processes">
