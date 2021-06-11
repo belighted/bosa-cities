@@ -50,6 +50,7 @@ class CopyOrganizationService
       copy_areas
       copy_users
 
+      copy_content_blocks
       copy_static_pages
       copy_help_sections
       copy_translations
@@ -88,6 +89,7 @@ class CopyOrganizationService
           area_types: [:areas],
           static_page_topics: [:pages]
         ).where(host: @options[:organization_host]).first
+      @content_blocks = Decidim::ContentBlock.where(organization: @source_org).to_a
       @help_sections = Decidim::ContextualHelpSection.where(organization: @source_org).to_a
       @translation_sets = Decidim::TermCustomizer::TranslationSet.includes(:constraints, :translations).where(decidim_term_customizer_constraints: {decidim_organization_id: @source_org}).to_a
       @assemblies = Decidim::Assembly.includes(:children, :components, :members).where(organization: @source_org).to_a
@@ -169,6 +171,12 @@ class CopyOrganizationService
       source_area_type.areas.each do |source_area|
         area_type.areas.create!(source_area.attributes.except('id', 'area_type_id').merge(@org_id_attr))
       end
+    end
+  end
+
+  def copy_content_blocks
+    @content_blocks.each do |source_content_block|
+      Decidim::ContentBlock.create!(source_content_block.attributes.except('id').merge(@org_id_attr))
     end
   end
 
