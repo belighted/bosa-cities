@@ -212,7 +212,7 @@ podTemplate(
                                     "${kube_conf_url_prod}",
                                     "bosa-national-survey-sidekiq",
                                     "bosa-prod",
-                                    ["bosabosa-national-survey-sidekiq" ],
+                                    ["bosa-national-survey-sidekiq" ],
                                     ["${docker_img_prod}/bosa-cities:${job_base_name}"]
                             )
                         }
