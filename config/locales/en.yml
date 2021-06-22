@@ -71,6 +71,10 @@ en:
           actions:
             dummy_authorization_handler: Add additional informations to your account
 
+    versions:
+      resource_version:
+        see_other_versions: see other versions
+
   layouts:
     decidim:
       footer:

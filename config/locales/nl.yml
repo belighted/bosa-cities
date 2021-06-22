@@ -160,6 +160,10 @@ nl:
             index:
               actions:
                 metadata: Metadata
+    versions:
+      resource_version:
+        see_other_versions: zie andere versies
+
   devise:
     mailer:
       confirmation_instructions:
