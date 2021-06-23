@@ -59,7 +59,6 @@ class CopyOrganizationService
       copy_processes # + components
 
       # copy components data
-      raise Exception("Some Components are missing") if Decidim::Component.all.to_a.select {|c| c.organization.id == @target_org.id}.count != @components.count
       copy_blogs_posts
       copy_proposals
       copy_debates
@@ -94,7 +93,8 @@ class CopyOrganizationService
       @translation_sets = Decidim::TermCustomizer::TranslationSet.includes(:constraints, :translations).where(decidim_term_customizer_constraints: {decidim_organization_id: @source_org}).to_a
       @assemblies = Decidim::Assembly.includes(:children, :components, :members).where(organization: @source_org).to_a
       @process_groups = Decidim::ParticipatoryProcessGroup.where(organization: @source_org).to_a
-      @processes = Decidim::ParticipatoryProcess.includes(:components).where(organization: @source_org).to_a
+      excluded_processes = %w(enq2020 Meudon movenohw Meudon2)
+      @processes = Decidim::ParticipatoryProcess.includes(:components, :steps, :categories).where(organization: @source_org).where.not(slug: excluded_processes).to_a
       @components = Decidim::Component.all.to_a.select {|c| c.organization.id == @source_org.id}
       @blogs_posts = Decidim::Blogs::Post.includes(:endorsements, :comments).all.to_a.select {|p| p.organization.id == @source_org.id}
       @proposals = Decidim::Proposals::Proposal.includes(:component, :endorsements, :coauthorships).all.to_a.select {|e| e.component.organization.id == @source_org.id}
@@ -255,6 +255,11 @@ class CopyOrganizationService
       )
       @_processes_mapping[source_process.id] = process.id
       _copy_components(source_process, process)
+      _copy_categories(source_process, process)
+
+      source_process.steps.each do |source_step|
+        process.steps.create!(source_step.attributes.except('id', 'decidim_participatory_process_id'))
+      end
     end
   end
 
@@ -262,6 +267,12 @@ class CopyOrganizationService
     source.components.each do |source_component|
       component = target.components.create!(source_component.attributes.except('id', 'participatory_space_id'))
       @_components_mapping[source_component.id] = component.id
+    end
+  end
+
+  def _copy_categories(source, target)
+    source.categories.each do |source_category|
+      target.categories.create!(source_category.attributes.except('id', 'decidim_participatory_space_id'))
     end
   end
 
