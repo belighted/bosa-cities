@@ -92,6 +92,11 @@ fr:
       omniauth:
         errors:
           minimum_age: Vous devez avoir au moins %{minimum_age} ans.
+
+    versions:
+      resource_version:
+        see_other_versions: voir les autres versions
+
   devise:
     mailer:
       confirmation_instructions:

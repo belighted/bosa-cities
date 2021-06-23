@@ -6,3 +6,6 @@ Disallow: /*.png$
 Disallow: /*/*/*/*/*/*/versions/
 Disallow: /users/auth/csam
 Disallow: /users/auth/saml
+Disallow: /*.ico$
+Disallow: /*.txt$
+Disallow: /*.jpg$

@@ -8,7 +8,7 @@ GIT
 
 GIT
   remote: https://github.com/belighted/decidim-module-navbar_links
-  revision: feb5f778004b2e1f003ff1de4f84e0f4667dbe46
+  revision: c84b70b6934fcccff677ba2b3bf209bbb4397065
   branch: 0.22.0
   specs:
     decidim-navbar_links (0.22.0)
