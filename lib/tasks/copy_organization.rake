@@ -33,6 +33,7 @@ class CopyOrganizationService
     @_users_mapping = {}
     @_scope_types_mapping = {}
     @_scopes_mapping = {}
+    @_areas_mapping = {}
     @_assemblies_mapping = {}
     @_process_groups_mapping = {}
     @_processes_mapping = {}
@@ -57,6 +58,7 @@ class CopyOrganizationService
 
       copy_assemblies # + components
       copy_processes # + components
+      copy_participatory_space_links
 
       # copy components data
       copy_blogs_posts
@@ -91,10 +93,11 @@ class CopyOrganizationService
       @content_blocks = Decidim::ContentBlock.where(organization: @source_org).to_a
       @help_sections = Decidim::ContextualHelpSection.where(organization: @source_org).to_a
       @translation_sets = Decidim::TermCustomizer::TranslationSet.includes(:constraints, :translations).where(decidim_term_customizer_constraints: {decidim_organization_id: @source_org}).to_a
-      @assemblies = Decidim::Assembly.includes(:children, :components, :members).where(organization: @source_org).to_a
+      @assemblies = Decidim::Assembly.includes(:children, :components, :areas, :members).where(organization: @source_org).to_a
       @process_groups = Decidim::ParticipatoryProcessGroup.where(organization: @source_org).to_a
       excluded_processes = %w(enq2020 Meudon movenohw Meudon2)
-      @processes = Decidim::ParticipatoryProcess.includes(:components, :steps, :categories).where(organization: @source_org).where.not(slug: excluded_processes).to_a
+      @processes = Decidim::ParticipatoryProcess.includes(:components, :areas, :steps, :categories).where(organization: @source_org).where.not(slug: excluded_processes).to_a
+      @participatory_space_links = Decidim::ParticipatorySpaceLink.all.to_a
       @components = Decidim::Component.all.to_a.select {|c| c.organization.id == @source_org.id}
       @blogs_posts = Decidim::Blogs::Post.includes(:endorsements, :comments).all.to_a.select {|p| p.organization.id == @source_org.id}
       @proposals = Decidim::Proposals::Proposal.includes(:component, :endorsements, :coauthorships).all.to_a.select {|e| e.component.organization.id == @source_org.id}
@@ -169,7 +172,8 @@ class CopyOrganizationService
     @source_org.area_types.each do |source_area_type|
       area_type = @target_org.area_types.create!(source_area_type.attributes.except('id'))
       source_area_type.areas.each do |source_area|
-        area_type.areas.create!(source_area.attributes.except('id', 'area_type_id').merge(@org_id_attr))
+        area = area_type.areas.create!(source_area.attributes.except('id', 'area_type_id').merge(@org_id_attr))
+        @_areas_mapping[source_area.id] = area.id
       end
     end
   end
@@ -218,6 +222,8 @@ class CopyOrganizationService
       @_assemblies_mapping[source_parent_assembly.id] = parent_assembly.id
       _copy_components(source_parent_assembly, parent_assembly)
       _copy_assembly_members(source_parent_assembly, parent_assembly)
+      _copy_areas(source_parent_assembly, parent_assembly)
+
       source_parent_assembly.children.each do |source_child_assembly|
         child_assembly = Decidim::Assembly.create!(source_child_assembly.attributes.except('id').
           merge(@org_id_attr).
@@ -227,7 +233,9 @@ class CopyOrganizationService
         @_assemblies_mapping[source_child_assembly.id] = child_assembly.id
         _copy_components(source_child_assembly, child_assembly)
         _copy_assembly_members(source_child_assembly, child_assembly)
+        _copy_areas(source_child_assembly, child_assembly)
       end
+
       Decidim::Assembly.reset_counters(parent_assembly.id, :children)
     end
   end
@@ -256,6 +264,7 @@ class CopyOrganizationService
       @_processes_mapping[source_process.id] = process.id
       _copy_components(source_process, process)
       _copy_categories(source_process, process)
+      _copy_areas(source_process, process)
 
       source_process.steps.each do |source_step|
         process.steps.create!(source_step.attributes.except('id', 'decidim_participatory_process_id'))
@@ -270,14 +279,38 @@ class CopyOrganizationService
     end
   end
 
+  def _copy_areas(source, target)
+    if source.area_ids.present?
+      source.area_ids.each do |source_area_id|
+        target.area_ids << @_areas_mapping[source_area_id]
+      end
+      target.save!
+    end
+  end
+
   def _copy_categories(source, target)
     source.categories.each do |source_category|
       target.categories.create!(source_category.attributes.except('id', 'decidim_participatory_space_id'))
     end
   end
 
+  def copy_participatory_space_links
+    @participatory_space_links.each do |source_link|
+      if source_link.from_type == 'Decidim::ParticipatoryProcess' && source_link.to_type == 'Decidim::ParticipatoryProcess' &&
+        @_processes_mapping.keys.include?(source_link.from_id) && @_processes_mapping.keys.include?(source_link.to_id)
+
+        Decidim::ParticipatorySpaceLink.create!(source_link.attributes.except('id').
+          merge("from_id": @_processes_mapping[source_link.from_id]).
+          merge("to_id": @_processes_mapping[source_link.to_id])
+        )
+      end
+    end
+  end
+
   def copy_blogs_posts
     @blogs_posts.each do |source_post|
+      next if @_components_mapping[source_post.decidim_component_id].blank?
+
       post = Decidim::Blogs::Post.create!(source_post.attributes.except('id').
         merge("decidim_component_id": @_components_mapping[source_post.decidim_component_id]).
         merge("decidim_author_id": @_users_mapping[source_post.decidim_author_id])
@@ -288,6 +321,8 @@ class CopyOrganizationService
 
   def copy_proposals
     @proposals.each do |source_proposal|
+      next if @_components_mapping[source_proposal.decidim_component_id].blank?
+
       proposal = Decidim::Proposals::Proposal.new(source_proposal.attributes.except('id').
         merge("decidim_component_id": @_components_mapping[source_proposal.decidim_component_id]).
         merge("decidim_scope_id": @_scopes_mapping[source_proposal.decidim_scope_id])
@@ -313,6 +348,8 @@ class CopyOrganizationService
 
   def copy_debates
     @debates.each do |source_debate|
+      next if @_components_mapping[source_debate.decidim_component_id].blank?
+
       debate = Decidim::Debates::Debate.create!(source_debate.attributes.except('id').
         merge("decidim_component_id": @_components_mapping[source_debate.decidim_component_id]).
         merge("decidim_author_id": @_users_mapping[source_debate.decidim_author_id])
@@ -323,6 +360,8 @@ class CopyOrganizationService
 
   def copy_meetings
     @meetings.each do |source_meeting|
+      next if @_components_mapping[source_meeting.decidim_component_id].blank?
+
       meeting = Decidim::Meetings::Meeting.create!(source_meeting.attributes.except('id').
         merge("decidim_component_id": @_components_mapping[source_meeting.decidim_component_id]).
         merge("decidim_scope_id": @_scopes_mapping[source_meeting.decidim_scope_id]).
