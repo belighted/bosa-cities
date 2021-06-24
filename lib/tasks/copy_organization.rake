@@ -41,6 +41,7 @@ class CopyOrganizationService
     @_debates_mapping = {}
     @_meetings_mapping = {}
     @_comments_mapping = {}
+    @_projects_mapping = {}
 
     read_source_data
 
@@ -65,6 +66,7 @@ class CopyOrganizationService
       copy_proposals
       copy_debates
       copy_meetings
+      copy_projects_and_orders
 
       # raise ActiveRecord::Rollback
     end
@@ -103,6 +105,8 @@ class CopyOrganizationService
       @proposals = Decidim::Proposals::Proposal.includes(:component, :endorsements, :coauthorships).all.to_a.select {|e| e.component.organization.id == @source_org.id}
       @debates = Decidim::Debates::Debate.includes(:component, :author, :comments).all.to_a.select {|d| d.component.organization.id == @source_org.id}
       @meetings = Decidim::Meetings::Meeting.includes(:component, :organizer, :comments).all.to_a.select {|m| m.component.organization.id == @source_org.id}
+      @projects = Decidim::Budgets::Project.includes(:line_items).all.to_a
+      @orders = Decidim::Budgets::Order.includes(:line_items).all.to_a
     end
   end
 
@@ -390,6 +394,32 @@ class CopyOrganizationService
         merge("decidim_author_id": @_users_mapping[source_comment.decidim_author_id])
       )
       @_comments_mapping[source_comment.id] = comment.id
+    end
+  end
+
+  def copy_projects_and_orders
+    @projects.each do |source_project|
+      next if @_components_mapping[source_project.decidim_component_id].blank?
+
+      project = Decidim::Budgets::Project.create!(source_project.attributes.except('id').
+        merge("decidim_component_id": @_components_mapping[source_project.decidim_component_id]).
+        merge("decidim_scope_id": @_scopes_mapping[source_project.decidim_scope_id])
+      )
+      @_projects_mapping[source_project.id] = project.id
+    end
+
+    @orders.each do |source_order|
+      next if @_components_mapping[source_order.decidim_component_id].blank?
+
+      order = Decidim::Budgets::Order.new(source_order.attributes.except('id').
+        merge("decidim_component_id": @_components_mapping[source_order.decidim_component_id]).
+        merge("decidim_user_id": @_users_mapping[source_order.decidim_user_id])
+      )
+      order.save!(validate: false)
+
+      source_order.line_items.each do |source_line_item|
+        order.line_items.create!(decidim_project_id: @_projects_mapping[source_line_item.decidim_project_id])
+      end
     end
   end
 
