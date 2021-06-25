@@ -165,15 +165,6 @@ nl:
         see_other_versions: zie andere versies
 
   devise:
-    mailer:
-      confirmation_instructions:
-        action: Action
-        greeting: Greeting
-        instruction: Instruction
-      email_changed:
-        action: Action
-        greeting: Greeting
-        instruction: Instruction
     sessions:
       new:
         sign_in: Sign in
