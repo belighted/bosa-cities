@@ -1,4 +1,5 @@
 require 'sidekiq/web'
+require 'sidekiq-scheduler/web'
 
 REDIS_URL = ENV.fetch('REDIS_URL') { 'redis://localhost:6379/1' }
 
